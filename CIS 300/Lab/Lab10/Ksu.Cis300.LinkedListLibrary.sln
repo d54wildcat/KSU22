@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksu.Cis300.LinkedListLibrary", "Ksu.Cis300.LinkedListLibrary\Ksu.Cis300.LinkedListLibrary.csproj", "{7D0907F5-31D8-400D-A9AF-44478E3C25F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksu.Cis300.LinkedListLibrary.Tests", "Ksu.Cis300.LinkedListLibrary.Tests\Ksu.Cis300.LinkedListLibrary.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D0907F5-31D8-400D-A9AF-44478E3C25F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0907F5-31D8-400D-A9AF-44478E3C25F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0907F5-31D8-400D-A9AF-44478E3C25F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0907F5-31D8-400D-A9AF-44478E3C25F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2042D1EC-4644-4B94-8379-96FB923CAE7F}
+	EndGlobalSection
+EndGlobal
