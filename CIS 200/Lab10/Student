@@ -1,0 +1,32 @@
+public class Student{
+    private String name;
+    private String userName;
+    private double gpa;
+    public Student(String name, String userName, double gpa){
+        this.name = name;
+        this.userName = userName;
+        this.gpa = gpa;
+    }
+    public Student(String name, String userName){
+        this.name = name;
+        this.userName = userName;
+    }
+    public getName(){
+        return name;
+    }
+    public getGpa(){
+        return gpa;
+    }
+    public getEmail(){
+        return userName + "@ksu.edu";
+    }
+    public void setGPA(double value){
+        gpa = value;
+    }
+    public void setGPA(String GPA){
+        gpa = Double.parseDouble(GPA);
+    }
+    public String toString(){
+        return name + "\n" + userName + "\nGPA: 3.4: " + gpa;
+    }
+}
