@@ -1,0 +1,30 @@
+//HW 8
+//1.logika
+
+//Prove the following predicate logic sequent
+
+!(A x P(x)) |- E x !P(x)
+{
+    1. !(A x P(x))         premise
+    2. {
+        3. !(E x !P(x))         assume //use pbc
+        4. {
+            5. a
+            6. {
+                7. !P(a)            assume
+                //use there exists intro on !P(a) which contradicts with line 3
+                8. E x !P(x)        Ei 7 a
+                9. _|_          !e 8 3
+                //want _|_
+            }
+            10. P(a)            pbc 6
+            //want P(a)
+        }
+        //use Ai to conclude A x P(x)
+        11. A x P(x)            Ai 4
+        12. _|_                 !e 11 1
+        //need contradiction
+    }
+    13. E x !P(x)           pbc 2
+    //use pbc
+}

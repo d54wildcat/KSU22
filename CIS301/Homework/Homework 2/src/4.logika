@@ -1,0 +1,21 @@
+//HW 2
+//4.logika
+
+//Complete the proof below
+//(f ^ g), (a ^ b) ^ (c ^ d)
+f ^ g, (a ^ b) ^ (c ^ d) |- (g ^ a) ^ (c ^ f)
+{
+    1. f ^ g                premise
+    2. (a ^ b) ^ (c ^ d)        premise
+    3. f                    ^e1 1
+    4. g                    ^e2 1
+    5. a ^ b                ^e1 2
+    6. c ^ d                ^e2 2
+    7. a                    ^e1 5
+    8. b                    ^e2 5
+    9. c                    ^e1 6
+    10. d                   ^e2 6
+    11. g ^ a               ^i 4 7
+    12. c ^ f               ^i 9 3
+    13. (g ^ a) ^ (c ^ f)   ^i 11 12
+}

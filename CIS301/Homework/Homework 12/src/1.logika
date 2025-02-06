@@ -1,0 +1,176 @@
+//HW 12
+//1.logika
+
+import org.sireum.logika._
+
+//Make sure Logika is in default mode
+    //Settings->Tools->Sireum->Logika
+          //Auto mode: off
+          //Checker kind: Forward
+
+//Do NOT make any changes to this file except to add the specified function contract and logic blocks
+
+
+//this function returns whether num is even
+def isEven(num: Z): B = {
+    //YOU DO THIS:
+    //Add a function contract requiring that n be nonnegative
+    //and ensuring that the return value is whether num is divisible by 2
+        //(Hint: use %)
+        l"""{
+            requires num >= 0
+            ensures result == (num % 2 == 0)
+        }"""
+
+    var cur: Z = num
+    var count: Z = 0
+
+    //YOU DO THIS:
+    //Show that loop invariant holds before the loop begins
+    l"""{
+        1. cur == num                premise
+        2. num >= 0                 premise
+        3. count == 0               premise
+        4. cur >= 0                 algebra 1 2
+        5. num % 2 == cur % 2       algebra 1
+        6. 2 * count == 0           algebra 3
+        7. num == 2 * count + cur   algebra 1 6
+
+    }"""
+
+    //continue subtracting 2 until you can't anymore
+    while (cur >= 2) {
+        l"""{
+            invariant
+                cur >= 0
+                num = 2*count + cur //think about why this is true
+                num % 2 = cur % 2   //think about why this is true
+            modifies cur, count
+        }"""
+
+        cur = cur - 2
+        //YOU DO THIS
+        //Add a logic block to process the update of cur
+        l"""{
+            1. cur == cur_old - 2               premise
+            2. cur + 2 == cur_old               algebra 1
+            3. num == 2 * count + cur_old       premise
+            4. num == 2 * count + cur + 2       algebra 1 3
+            5. num % 2 == cur_old % 2           premise
+            6. num % 2 == cur % 2               algebra 1 5
+            7. cur_old >= 2                     premise
+            8. cur >= 0                         algebra 1 7
+            9. num % 2 == cur % 2               algebra 6
+        }"""
+
+        count = count + 1
+        //YOU DO THIS
+        //Add a logic block to process the update of count
+        //By the end of this block, you need to show that the invariant still holds
+        l"""{
+            1. num == 2 * count_old + cur + 2          premise
+            2. count == count_old + 1                  premise
+            3. count_old == count - 1                  algebra 2
+            4. num == 2 * (count -1) + cur + 2         algebra 1 3
+            5. num == 2 * count + cur                 algebra 4
+        }"""
+    }
+
+    //YOU DO THIS
+    //Add a logic block to process what you know is true after the loop ends
+    l"""{
+        1. !(cur >= 2)                  premise
+        2. cur < 2                      algebra 1
+        3. num == 2 * count + cur        premise
+        4. num % 2 == cur % 2            premise
+        5. cur >= 0                      premise
+    }"""
+
+
+    //if you have 0 left now, the original number was even
+    //if you have 1 left now, the original number was odd
+    var isFactor: B = true
+    if (cur != 0) {
+        isFactor = false
+
+        //YOU DO THIS
+        //Add a logic block to process what you know is true in the if-branch
+        l"""{
+            1. isFactor == false          premise
+            2. cur != 0                   premise
+            3. cur < 2                    premise
+            4. cur >= 0                   premise
+            5. num % 2 == cur % 2         premise
+            6. cur == 1                   algebra 2 3 4
+            7. num % 2 == 1               algebra 5 6
+            8. isFactor == (num % 2 == 0) algebra 1 7
+        }"""
+    } else {
+        //no code
+
+        //YOU DO THIS
+        //Add a logic block to process what you know is true in the else-branch
+        l"""{
+            1. !(cur != 0)                premise
+            2. cur == 0                   algebra 1
+            3. isFactor == true           premise
+            4. num % 2 == cur % 2         premise
+            5. num % 2 == 0               algebra 2 4
+            6. isFactor == (num % 2 == 0) algebra 3 5
+        }"""
+    }
+
+    //YOU DO THIS
+    //Add a logic block to summarize what you learned in the if/else above
+    //In this block, you must show that the postcondition in the function contract holds
+    //(You may need to edit your if/else logic blocks to complete the verification)
+    l"""{
+        1. isFactor == (num % 2 == 0)   premise
+    }"""
+    return isFactor
+}
+
+//////////////// Test code //////////////////
+
+var x: Z = 5
+l"""{
+    1. x == 5                      premise
+    2. 5 >= 0                      algebra
+    3. x>= 0                       algebra 1 2
+}"""
+//YOU DO THIS
+//Add a logic block to show that the precondition to the function holds
+var even: B = isEven(x)
+l"""{
+    1. even == (x % 2 == 0)              premise
+    2. x == 5                            premise
+    3. 5 % 2 != 0                        algebra
+    4. x % 2 != 0                        algebra 2 3
+    5. even == false                     algebra 1 4
+}"""
+//YOU DO THIS:
+//Add a logic block so that the following assert holds
+assert(even == false)
+
+
+x = 10
+l"""{
+    1. x == 10                          premise
+    2. 10 > 0                           algebra
+    3. x >= 0                            algebra 1 2
+}"""
+
+//YOU DO THIS
+//Add a logic block to show that the precondition to the function holds
+even = isEven(x)
+l"""{
+    1. even == (x % 2 == 0)              premise
+    2. x == 10                          premise
+    3. 10 % 2 == 0                  algebra
+    4. x % 2 == 0                  algebra 2 3
+    5. even == true                   algebra 1 4
+}"""
+//YOU DO THIS:
+//Add a logic block so that the following assert holds
+
+assert(even == true)

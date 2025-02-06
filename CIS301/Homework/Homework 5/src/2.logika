@@ -1,0 +1,43 @@
+//HW 5
+//2.logika
+
+//Use either propositional logic proofs or truth tables to how that the following formulae are equivalent:
+
+//(p ^ q) V (!p ^ r)
+//(p->q) ^ (!p -> r)
+
+
+//If you choose to use truth tables to show the equivalence:
+    //a) Put your first truth table in the file 2a.logika
+    //b) Put your second truth table in the file 2b.logika
+    //c) Explain below WHY your truth tables show the formuale are equivalent
+    The truth table shows that the formulas as when either side implies the other, the table proves true
+    As these are semantically entailed, the truth table shows a tautology.
+    //As an alternative to doing (a) and (b), you can make a single truth table in 2a.logika that shows
+    //the statements are equivalent.
+
+
+
+
+
+
+    //b) Explain below HOW you would instead use proofs to show the equivalence (you don't need to include the proofs).
+    Using proofs, we would set one of the statements as a premise and then set the other statement as what we need to
+    prove.
+
+
+
+
+
+
+//If you choose to use proofs to show the equivalence:
+    //a) Put your first proof in the file 2a.logika
+    //b) Put your second proof in the file 2b.logika
+    //c) Explain below WHY your truth tables show the formulae are equivalent
+    //As an alternative to doing both (a) and (b), you can write a single proof in 2a.logika that shows
+    //the statements are equivalent.
+
+
+
+
+    //d) Explain below HOW you would instead use truth tables to show the equivalence (you don't need to include the truth tables.

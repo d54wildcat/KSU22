@@ -1,0 +1,12 @@
+//HW 7
+//5.logika
+
+//You can ignore any red error markings in this file -- it doesn't use the Logika tool.
+
+Prove, using mathematical induction, that the number n^2 + 5n + 1 is odd for any integer n >= 1.
+Base case = 1       so 1^2 + 5 + 1 = 7 so base case holds
+
+Induction step: For all numbers 1 + 2 + 3... n + 1 = (n + 1)^2 + 5(n + 1) + 1
+= (n + 1)^2 + 5(n + 1) + 1 - (n + 1)
+= n^2 + 2n + 1 + 5n + 1 - (n + 1)
+=n^2 + 5n + 1

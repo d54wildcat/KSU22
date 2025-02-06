@@ -1,0 +1,48 @@
+//HW 10
+//3.logika
+
+//YOU DO THIS:
+//1) Read through the program to see what it does. You might try running the program with different inputs.
+//2) Add the assert statement(s) described at the bottom of the file
+//3) Add the appropriate logic blocks so the assert statement(s) will be validated (in default mode)
+    //Settings->Tools->Sireum->Logika
+          //Auto mode: off
+          //Checker kind: Forward
+
+//You should not change any code -- your only modifications should be creating an assert and new logic blocks.
+
+import org.sireum.logika._
+
+val a: Z = readInt("Enter first number: ")
+val b: Z = readInt("Enter second number: ")
+
+var diff: Z = 0
+
+if (a < b) {
+    diff = b - a
+    l"""{
+        1. a < b      premise
+        2. diff_old = 0   premise
+        3. diff == b - a  premise
+        4. diff >= 0    algebra 3 1
+    }"""
+} else {
+    diff = a - b
+    l"""{
+        1. !(a < b)   premise
+        2. diff_old = 0   premise
+        3. diff == a - b  premise
+        4. diff >= 0    algebra 3 1
+    }"""
+}
+l"""{
+    1. diff >= 0    premise
+    2. (diff ==  b - a) V (diff == a - b)    premise
+    3. ((diff == b - a) V (diff == a - b)) ^ (diff >= 0)  ^i 2 1
+}"""
+
+
+print("Difference between ", a, " and ", b, " is ", diff)
+assert((diff == b-a | diff == a-b) & diff >= 0)
+//YOU DO THIS: Add an assert statement saying that diff is either b-a or a-b, and that diff is non-negative.
+    //You can use either one or two asserts, depending on how you structure them

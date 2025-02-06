@@ -1,0 +1,61 @@
+//HW 11
+//1.logika
+
+//Make sure Logika is in default mode
+    //Settings->Tools->Sireum->Logika
+          //Auto mode: off
+          //Checker kind: Forward
+
+import org.sireum.logika._
+
+def plus(x: Z, y: Z): Z = {
+    l"""{
+        requires x > 0 ^ y > 0
+        ensures result == x + y
+            result > 0
+    }"""
+
+    val sum: Z = x + y
+
+    //YOU DO THIS
+
+    //Add a logic block to prove the postcondition
+    l"""{
+        1. sum == x + y       premise
+        2. x > 0 ^ y > 0     premise
+        3. x > 0            ^e1 2
+        4. y > 0            ^e2 2
+        5. x + y > 0        algebra 3 4
+        6. sum > 0          algebra 1 5
+    }"""
+    return sum
+}
+
+//////////// Test code /////////////
+
+val a: Z = 4
+val b: Z = 6
+
+//YOU DO THIS
+//Add a logic block to prove the precondition
+l"""{
+    1. a == 4     premise
+    2. b == 6     premise
+    3. a + a > 0  algebra 1
+    4. b > 0      algebra 2
+    5. a + a > 0 ^ b > 0  ^i 3 4
+}"""
+
+val sumTest: Z = plus(a+a, b)
+l"""{
+    1. sumTest == a + a + b    premise
+    2. b == 6                   premise
+    3. a == 4                  premise
+    4. a + a == 8        algebra 3
+    5. a + a + b == 14   algebra 4 2
+    6. sumTest == 14     algebra 1 5
+}"""
+//YOU DO THIS
+//Add a logic block to prove the assert statement
+
+assert(sumTest == 14)

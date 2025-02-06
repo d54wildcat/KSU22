@@ -1,0 +1,22 @@
+//HW 6
+//3.logika
+
+//Complete the following predicate logic proof
+
+A x (Students(x) ^ KState(x)) |- (A x Students(x)) ^ (A y KState(y))
+{
+    1. A x (Students(x) ^ KState(x))        premise
+    2.{
+        3. fresh
+        4. Students(fresh) ^ KState(fresh)  Ae 1 fresh
+        5. Students(fresh)                  ^e1 4
+    }
+    6. A x (Students(x))                Ai 2
+    7. {
+        8. a
+        9. Students(a) ^ KState(a)      Ae 1 a
+        10. KState(a)                   ^e2 9
+    }
+    11. A y (KState(y))             Ai 7
+    12. (A x (Students(x))) ^ (A y KState(y))     ^i 6 11
+}

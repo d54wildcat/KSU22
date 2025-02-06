@@ -1,0 +1,70 @@
+//HW 14
+//1.logika
+
+//Should be verified in "symexe" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: on
+    //Checker kind: summarizing SymeExe
+
+//YOU DO THIS
+//Add a function contract and loop invariant block
+//The function should work for any size of sequence
+//The asserts at the end should hold when you are done
+
+//HINT: you'll need an extra statement in the function contract and loop invariant
+//that says if the sequence size is odd, then the middle element does not change
+//(use an -> statement)
+
+import org.sireum.logika._
+
+//update a sequence to be its reverse
+//e.g. if seq is (1,2,3) then it will be updated
+//to be (3,2,1)
+def reverseSeq(seq: ZS): Unit = {
+l"""{
+    modifies seq
+    ensures seq.size = seq_in.size
+    A x: (0..< seq.size)seq(x) == seq_in(seq_in.size - 1 - x) ^ seq(seq.size - 1 - x) == seq_in(x)
+    (seq.size % 2 == 1) -> (seq(seq.size / 2) == seq_in(seq_in.size / 2))
+}"""
+
+    var i: Z = 0
+    while (i < seq.size/2) {
+    l"""{
+        invariant
+            i >=0
+            i <= seq.size
+            seq.size == seq_in.size
+            A x: (0..<i) seq(x) == seq_in(seq_in.size - 1 - x) ^ seq(seq.size - 1 - x) == seq_in(x)
+            A x: (i..<seq.size - i) seq(x) == seq_in(x)
+            (seq.size % 2 == 1) -> (seq(seq.size / 2) == seq_in(seq_in.size / 2))
+        modifies i, seq
+    }"""
+
+        var temp: Z = seq(i)
+        seq(i) = seq(seq.size-i-1)
+        seq(seq.size-i-1) = temp
+        i = i + 1
+    }
+}
+
+/////////// Test code /////////////////
+
+//The asserts below should hold when you are done
+
+var list: ZS = ZS(1,2,3)
+reverseSeq(list)
+
+assert(list == ZS(3,2,1))
+
+list = ZS()
+reverseSeq(list)
+assert(list == ZS())
+
+list = ZS(5)
+reverseSeq(list)
+assert(list == ZS(5))
+
+list = ZS(5,2)
+reverseSeq(list)
+assert(list == ZS(2,5))

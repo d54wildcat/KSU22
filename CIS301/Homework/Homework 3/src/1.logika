@@ -1,0 +1,23 @@
+//HW 3, problem 1
+
+//Complete the proof below
+
+p V (q ^ r) |- (p V q) ^ (p V r)
+{
+    1. p V (q ^ r)     premise
+    2. {
+        3. p    assume
+        4. p V q    Vi1 3
+        5. p V r    Vi1 3
+        6. (p V q) ^ (p V r)    ^i 4 5
+    }
+    7. {
+        8. q ^ r    assume
+        9. q           ^e1 8
+        10. r           ^e2 8
+        11. p V q      Vi2 9
+        12. p V r     Vi2 10
+        13. (p V q) ^ (p V r)    ^i 11 12
+    }
+    14. (p V q) ^ (p V r)   Ve 1 2 7
+}

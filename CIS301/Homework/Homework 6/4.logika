@@ -1,0 +1,22 @@
+//HW 6
+//4.logika
+
+//Complete the following predicate logic proof
+
+A x (Dog(x) -> Play(x)), A x (!Play(x)) |- A x (!Dog(x))
+{
+    1. A x (Dog(x) -> Play(x))          premise
+    2. A x (!Play(x))                   premise
+    3. {
+        4. a
+        5. Dog(a) -> Play(a)            Ae 1 a
+        6. !Play(a)                     Ae 2 a
+        7. {
+            8. Dog(a)               assume
+            9. Play(a)              ->e 5 8
+            10. _|_         !e 9 6
+        }
+        11.!Dog(a)                  !i 7
+    }
+    12. A x (!Dog(x))               Ai 3
+}

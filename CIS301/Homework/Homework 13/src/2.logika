@@ -1,0 +1,65 @@
+//HW 13
+//2.logika
+
+//Should be verified in "symexe" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: on
+    //Checker kind: summarizing SymeExe
+import org.sireum.logika._
+
+l"""{
+    fact
+        def fib(n: Z): Z
+            fib0. fib(0) == 1
+            fib1. fib(1) == 1
+            fibn. A x: Z x > 1 -> fib(x) == fib(x-1) + fib(x-2)
+}"""
+
+def fibonacci(n: Z): Z = {
+    //YOU DO THIS
+    //Write the function contract
+    //Think about what parameters would NOT work with this function
+    //You should use the Logika fact above in your postcondition
+    l"""{
+        requires n >= 2
+        ensures result == fib(n)
+    }"""
+
+
+    var cur: Z = 1
+    var prev: Z = 1
+    var i: Z = 1
+
+    while (i < n) {
+        //YOU DO THIS
+        //Write the loop invariant block
+        //You will need to specify what both cur and prev are at the current point in the loop
+            //(Hint: they're both Fibonacci values)
+        l"""{
+            invariant
+                i <= n
+                i >= 1
+                cur == fib(i)
+                prev == fib(i - 1)
+            modifies cur, prev, i
+        }"""
+
+
+        i = i + 1
+        cur = cur + prev
+        prev = cur - prev
+    }
+
+    return cur
+}
+
+////////////The assertions below should hold when you are done//////////////
+
+var test: Z = fibonacci(4)
+assert(test == 5)
+
+test = fibonacci(10)
+assert(test == 89)
+
+test = fibonacci(2)
+assert(test == 2)

@@ -1,0 +1,33 @@
+//HW 7
+//2.logika
+
+//Prove the following predicate logic sequent:
+
+A x (Kid(x) V Adult(x)), A x (Tall(x) -> !Kid(x)), E x !Adult(x) |- E x !Tall(x)
+{
+    1. A x (Kid(x) V Adult(x))         premise
+    2. A x (Tall(x) -> !Kid(x))         premise
+    3. E x !Adult(x)                premise
+    4. {
+        5. a !Adult(a)              assume
+        6. Kid(a) V Adult(a)        Ae 1 a
+        7. Tall(a) -> !Kid(a)       Ae 2 a
+        8. {
+            9. Kid(a)               assume
+            10. {
+                 11. Tall(a)            assume
+                 12. !Kid(a)            ->e 7 11
+                 13. _|_                !e 9 12
+            }
+            14. !Tall(a)                !i 10
+        }
+        15. {
+            16. Adult(a)            assume
+            17. _|_                 !e 16 5
+            18. !Tall(a)            _|_e 17
+        }
+        19. !Tall(a)            Ve 6 8 15
+        20. E x !Tall(x)            Ei 19 a
+    }
+    21. E x !Tall(x)                Ee 3 4
+}

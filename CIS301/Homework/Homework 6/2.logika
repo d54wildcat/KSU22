@@ -1,0 +1,51 @@
+//HW 6, 2.logika
+//Problems 6-10
+
+//You can ignore any red markings in this file
+
+Translate the following to predicate logic using the
+following predicates:
+
+(Domain: beverages)
+
+C(x): beverage x contains coffee
+S(x): beverage x contains sugar
+M(x): beverage x contains milk
+H(x, y): beverage x is hotter than beverage y
+E(x,y): beverage x is more expensive than beverage y
+D(x): beverage x contains caffeine
+
+Sprite and Chai are particular individuals
+(so you can plug in "Sprite" or "Chai" as a beverage in a
+predicate without using a quantifier)
+
+1. Sprite is colder (not hotter than) all beverages with
+    coffee.
+
+A x H(Sprite, C(x))
+
+
+2. Chai does not contain coffee, but is more expensive
+    than some beverage that does contain coffee.
+//!C(Chai)
+//C(y)
+//E(Chai, y)
+E x (!(C(Chai)) ^ E y C(y) ^ E(x, y))
+
+
+
+3. There is a drink with both coffee and caffeine that
+    is more expensive than all beverages without milk.
+
+E x (C(x) ^ D(x) ^ A y M(y) -> E(x, y))
+
+
+4. There is no drink with milk that doesn't also contain
+    sugar.
+    //All drinks with milk also contain sugar
+A x M(x) -> S(x)
+
+5. Some beverages with caffeine don't have coffee, but
+    they do have sugar.
+
+E x (D(x) ^ !C(x) ^ S(x))

@@ -1,0 +1,126 @@
+//HW 12
+//2.logika
+
+//Should be verified in "default" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: off
+    //Checker kind: forward
+
+import org.sireum.logika._
+
+def diff(a: Z, b: Z): Z = {
+    //YOU DO THIS:
+    //Add a function contract requiring that a be less than or equal to b
+    //and ensuring that the return value is the difference between b and a
+    l"""{
+        requires a <= b
+        ensures result == b - a
+    }"""
+
+    var cur: Z = a
+    var count: Z = 0
+
+    //YOU DO THIS
+    //(After writing your loop invariant block)
+    //Prove the invariants holds before the loop begins
+    l"""{
+        1. a <= b               premise
+        2. cur == a             premise
+        3. count == 0           premise
+        4. cur == count + a     algebra 2 3
+        5. cur <= b            algebra 1 2
+    }"""
+
+
+    while (cur < b) {
+        //YOU DO THIS
+        //Write a loop invariant block
+            //how does cur relate to count and a?
+            //we need to know that cur == b after the loop -- what invariant do we need to be sure it will?
+            l"""{
+                invariant cur <= b
+                    cur = count + a
+                modifies cur, count
+            }"""
+
+
+        cur = cur + 1
+
+        //YOU DO THIS
+        //Write a logic block to process the update of cur
+        l"""{
+            1. cur = cur_old + 1    premise
+            2. cur_old < b          premise
+            3. a <= b               premise
+            4. cur_old == count + a premise
+            5. cur - 1 < b          algebra 1 2
+            6. cur - 1 == count + a algebra 1 4
+            7. cur <= b             algebra 5
+            8. cur == count + a + 1 algebra 6
+        }"""
+
+        count = count + 1
+        //YOU DO THIS
+        //Write a logic block to process the update of count
+        //By the end, you must prove that your invariants still hold
+        l"""{
+            1. count = count_old + 1    premise
+            2. cur - 1 == count_old + a premise
+            3. cur == count_old + a + 1 premise
+            4. cur - 1 = count - 1 + a  algebra 1 2
+            5. cur == count + a         algebra 4
+        }"""
+    }
+
+    //YOU DO THIS
+    //Write a logic block to validate your postcondition
+    l"""{
+        1. cur == count + a           premise
+        2. cur <= b                   premise
+        3. !(cur < b)                 premise
+        4. cur == b               algebra 2 3
+        5. b == count + a         algebra 1 4
+        6. count == b - a         algebra 5
+    }"""
+
+    return count
+}
+
+//////////////////// Test code //////////////////////////
+
+//YOU DO THIS
+//Add appropriate logic blocks so the asserts below are verified
+
+val num1: Z = -2
+val num2: Z = 5
+l"""{
+    1. num1 == -2      premise
+    2. num2 == 5       premise
+    3. -1 <= 5         algebra
+    4. num1 <= num2        algebra 1 2 3
+}"""
+
+var between: Z = diff(num1, num2)
+l"""{
+    1. num1 == -2             premise
+    2. num2 == 5              premise
+    3. between == num2 - num1 premise
+    4. between == 5 - (-2)    algebra 1 2 3
+    5. between == 7           algebra 4
+}"""
+
+assert(between == 7)
+l"""{
+    1. 4 + 2 == 6          algebra
+    2. 9 - 3 == 6         algebra
+    3. 6 <= 6            algebra
+    4. 4 + 2 <= 9-3        algebra 1 2 3
+}"""
+between = diff(4+2, 9-3)
+l"""{
+    1. 4 + 2 == 6          premise
+    2. 9 - 3 == 6          premise
+    3. between == (9-3) - (4+2) premise
+    4. between == 0         algebra 1 2 3
+}"""
+assert(between == 0)

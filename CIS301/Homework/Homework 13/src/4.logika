@@ -1,0 +1,64 @@
+//HW 13
+//4.logika
+
+//Should be verified in "symexe" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: on
+    //Checker kind: summarizing SymeExe
+
+import org.sireum.logika._
+
+//update a so each a(pos) = pos
+//i.e. ZS(0, 1, 2, ...)
+def setToPos(a: ZS): Unit = {
+    //YOU DO THIS
+    //Write the function contract
+    //Specify exactly how the sequence will change by the end of the function.
+    //Remember to specify that the sequence size doesn't change.
+    l"""{
+                requires
+                    a.size >= 0
+                modifies a
+                ensures
+                    a.size = a_in.size
+                    A x: (0.. < a.size) a(x) = x
+    }"""
+
+    var pos: Z = 0
+    while (pos < a.size) {
+        //YOU DO THIS
+        //Write the loop invariant block
+        //Specify exactly what part of the sequence has changed so far (and what the new values are),
+        //and what part of the sequence has NOT changed so far.
+        //Remember to specify that the sequence size doesn't change,
+        //and the range of the pos loop counter variable.
+        l"""{
+            invariant
+                a.size = a_in.size
+                A x: (0..< pos) a(x) = x
+                A x: (pos..< a.size) a(x) = a_in(x)
+                pos >= 0
+            modifies a, pos
+        }"""
+
+        a(pos) = pos
+        pos = pos + 1
+    }
+}
+
+////////////The assertions below should hold when you are done//////////////
+
+var test: ZS = ZS(2,4,6,8,10)
+setToPos(test)
+print("Updated sequence: ", test)
+assert(test == ZS(0,1,2,3,4))
+
+test = ZS(7,11)
+setToPos(test)
+print("Updated sequence: ", test)
+assert(test == ZS(0,1))
+
+test = ZS()
+setToPos(test)
+print("Should be an empty sequence: ", test)
+assert(test == ZS())

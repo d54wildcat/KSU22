@@ -1,0 +1,113 @@
+//HW 11
+//4.logika
+
+//Make sure Logika is in default mode
+    //Settings->Tools->Sireum->Logika
+          //Auto mode: off
+          //Checker kind: Forward
+
+import org.sireum.logika._
+
+//This Logika fact defines how to add the numbers 1 + 2 + ... + n
+//If we are adding the numbers up to 1, the sum is 1 (fact sum1)
+//If we are adding the numbers up to x, where x > 1, the sum is (fact sumN):
+    //  x + (the sum of the numbers up to x-1)
+    //  = x + sumDef(x-1)
+l"""{
+    fact
+        def sumDef(n: Z): Z
+            sum1. sumDef(1) == 1
+            sumN. A x: Z x > 1 -> sumDef(x) == x + sumDef(x - 1)
+}"""
+
+//The logic blocks in sumToN are finished
+//You only need to add logic blocks in the test code below
+def sumToN(n: Z): Z = {
+    l"""{
+        requires n >= 1             //precondition
+        ensures result == sumDef(n) //postcondition
+    }"""
+
+    var answer: Z = 0
+
+    if (n == 1)  {
+        answer = 1
+        l"""{
+            1. answer == 1          premise
+            2. n == 1               premise
+            3. sumDef(1) == 1       fact sum1
+            4. answer == sumDef(n)  algebra 1 2 3
+        }"""
+    } else {
+        l"""{
+            1. !(n == 1)            premise
+            2. n >= 1               premise //from the precondition
+            3. n > 1                algebra 1 2
+            4. n-1 >= 1             algebra 3
+        }"""
+
+        answer = sumToN(n-1)
+        l"""{
+            1. answer == sumDef(n-1)                            premise //from the postcondition
+            2. A x: Z x > 1 -> sumDef(x) == x + sumDef(x-1)     fact sumN
+            3. n > 1                                            premise //from previous block
+            4. n > 1 -> sumDef(n) == n + sumDef(n-1)            Ae 2 n
+            5. sumDef(n) == n + sumDef(n-1)                     ->e 4 3
+        }"""
+
+        answer = answer + n
+        l"""{
+            1. answer == answer_old + n         premise //from assignment statement
+            2. answer_old == sumDef(n-1)        premise //from previous block
+            3. sumDef(n) == n + sumDef(n-1)     premise //from previous block
+            4. answer == sumDef(n-1) + n        algebra 1 2
+            5. answer == sumDef(n)              algebra 3 4
+        }"""
+    }
+
+    l"""{
+        1. answer == sumDef(n)                  premise //was true in if and in else
+    }"""
+
+    return answer
+}
+
+//////////// Test code /////////////
+
+var num: Z = 3
+
+//YOU DO THIS
+//Add a logic block to prove the precondition
+l"""{
+    1. num = 3             premise
+    2. num >= 1           algebra 1
+}"""
+
+
+val sumTo3: Z = sumToN(num)
+print("The sum from 1 up to 3 is ", sumTo3)
+
+//YOU DO THIS
+//Add a logic block to prove the assert
+l"""{
+    1. sumTo3 == sumDef(num)                            premise
+    2. num = 3                                          premise
+    3. sumTo3 == sumDef(3)                              subst1 2 1
+    4. sumDef(1) == 1                                   fact sum1
+    5. A x: Z x > 1 -> sumDef(x) == x + sumDef(x-1)     fact sumN
+    6. 3 > 1 -> sumDef(3) == 3 + sumDef(3 - 1)          Ae 5 3
+    7. 3 > 1                                            algebra
+    8. sumDef(3) == 3 + sumDef(3 - 1)                   ->e 6 7
+    9. sumDef(3) == 3 + sumDef(2)                       algebra 8
+    10. 2 > 1 -> sumDef(2) == 2 + sumDef(2 - 1)         Ae 5 2
+    11. 2 > 1                                           algebra
+    12. sumDef(2) == 2 + sumDef(2 - 1)                  ->e 10 11
+    13. sumDef(2) == 2 + sumDef(1)                      algebra 12
+    14. sumDef(2) == 2 + 1                              subst1 4 13
+    15. sumDef(3) == 6                                  algebra 9 14
+    16. sumTo3 == 6                                     subst1 15 3
+}"""
+
+assert(sumTo3 == 6)
+
+

@@ -1,0 +1,70 @@
+//HW 14
+//2.logika
+
+//Should be verified in "symexe" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: on
+    //Checker kind: summarizing SymeExe
+
+//YOU DO THIS
+//Add a function contract and loop invariant block
+//You may require that the sequence length be at least 2 (if you want)
+//The asserts at the end should hold when you are done
+
+//HINT: your function contract can include something of the form:
+    //result -> (all elements are in sorted order)
+//This means: If I return true (if result is true), then the sequence was sorted
+//You'll want a similar statement to handle the case where you return false:
+    //!result -> (there is at least one element that isn't in order)
+
+//You will have similar versions of both those statements in your loop invariant block.
+
+import org.sireum.logika._
+
+//isSorted returns whether nums is sorted in ascending order
+//isSorted(1,3,4,4,6) -> true
+//isSorted(1,3,4,3,6) -> false
+
+def isSorted(nums: ZS): B = {
+    l"""{
+        requires
+            nums.size > 1
+        ensures
+            result -> (A x:(0..<nums.size -1) nums(x) <= nums(x+1))
+            !result -> (E x:(0..<nums.size -1) nums(x) > nums(x+1))
+    }"""
+    var sorted: B = true
+    var i: Z = 0
+    while (i < nums.size-1) {
+    l"""{
+        invariant
+            i >= 0
+            i <= nums.size -1
+            sorted -> (A x:(0..<i) nums(x) <= nums(x+1))
+            !sorted -> (E x: (0..<i) nums(x) > nums(x + 1))
+        modifies i, sorted
+    }"""
+        if (nums(i) > nums(i+1)) {
+            sorted = false
+        }
+        i = i + 1
+    }
+
+    return sorted
+}
+
+///////// Test code ///////////
+
+//The asserts below should hold when you are done
+
+var test: ZS = ZS(1,3,4,4,6)
+var sort: B = isSorted(test)
+assert(sort == true)
+
+test = ZS(1,3,4,3,6)
+sort = isSorted(test)
+assert(sort == false)
+
+test = ZS(2,3)
+sort = isSorted(test)
+assert(sort == true)

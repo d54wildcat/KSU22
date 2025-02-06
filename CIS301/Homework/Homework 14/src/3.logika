@@ -1,0 +1,120 @@
+//HW 14
+//3.logika
+
+//Should be verified in "symexe" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: on
+    //Checker kind: summarizing SymeExe
+
+//This program keeps student grade information
+//They are on the honor roll if their GPA calculation
+//totalPoints/totalHours is greater than the cutoff (3)
+
+//the byGrade sequence stores the number of hours for each letter grade
+//byGrade(0) is the number of hours of F (0 points per hour)
+//byGrade(1) is the number of hours of D (1 point per hour)
+//byGrade(2) is the number of hours of C (2 points per hour)
+//byGrade(3) is the number of hours of B (3 point per hour)
+//byGrade(4) is the number of hours of A (4 point per hour)
+
+//For example, if the student has 6 hours of C (2 points each) and
+//5 hours of A (4 points each), byGrades would be: (0,0,6,0,5)
+//their total points would be:
+    //6 * 2 + 5 * 4 = 32 points
+//The total hours in this example would be 11
+
+import org.sireum.logika._
+
+var totalPoints: Z = 0
+var totalHours: Z = 0
+var honorRoll: B = false
+var byGrade: ZS = ZS(0,0,0,0,0)
+val cutoff: Z = 3
+
+l"""{
+    fact
+        def sumHours(seq: ZS, pos: Z): Z
+            = 0, if pos == 0            (sumHr0)
+            = seq(pos-1) + sumHours(seq, pos-1),
+                if pos >= 1             (sumHrN)
+
+        def sumPts(seq: ZS, pos: Z): Z
+            = 0, if pos == 0            (sumPts0)
+            = (pos-1) * seq(pos-1) + sumPts(seq, pos-1),
+                if pos >= 1             (sumPtsN)
+}"""
+
+l"""{
+    invariant
+        totalPoints >= 0
+        totalHours >= 0
+        A k: (0..<byGrade.size) byGrade(k) >= 0
+        byGrade.size == 5
+        totalHours == sumHours(byGrade, byGrade.size)
+        totalPoints == sumPts(byGrade, byGrade.size)
+        totalHours == 0 -> (honorRoll == false)
+        totalHours > 0 -> (honorRoll == ((totalPoints/totalHours) >= cutoff))
+}"""
+
+//YOU DO THIS
+//Given the global invariant above, add a function contract
+//that will help validate that the global invariants
+//will still hold at the end of each function call
+
+//HINT: describe how each global variable will be changed by the function
+    //for the byGrade sequence, describe which elements will change and which will not change
+
+//When you finish, the asserts at the bottom should hold
+
+
+
+//adds information about a course
+//hrs = the number of hours for the course
+//pts = the number of points for the course (4 = A, 3 = B, 2 = C, 1 = D, 0 = F)
+//updates the global variables to store the new course information
+def addCourse(hrs: Z, pts: Z): Unit = {
+l"""{
+    requires
+        pts >= 0
+        pts <= 4
+        hrs >= 0
+    modifies honorRoll, totalHours, totalPoints, byGrade
+    ensures
+        totalHours == totalHours_in + hrs
+        totalPoints == totalPoints_in + hrs * pts
+        byGrade.size == byGrade_in.size
+        byGrade(pts) == byGrade_in(pts) + hrs
+        A x: (0..<byGrade.size) x != pts -> byGrade(x) == byGrade_in(x)
+}"""
+    totalHours = totalHours + hrs
+    byGrade(pts) = byGrade(pts) + hrs
+    totalPoints = totalPoints + hrs*pts
+
+    if (totalHours > 0) {
+        //all division is integer division
+        if (totalPoints/totalHours >= cutoff) {
+            honorRoll = true
+        } else {
+            honorRoll = false
+        }
+    }
+}
+
+//////// Test code ///////////////
+
+//The asserts below should hold when you are done
+
+addCourse(3, 4)
+addCourse(5, 2)
+
+assert(totalHours == 8)
+assert(totalPoints == 22)
+assert(honorRoll == false)
+
+addCourse(4, 4)
+assert(honorRoll == true)
+
+addCourse(5, 0)
+assert(totalHours == 17)
+assert(totalPoints == 38)
+assert(honorRoll == false)

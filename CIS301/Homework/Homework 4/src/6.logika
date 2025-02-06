@@ -1,0 +1,46 @@
+//HW 4
+//6.logika
+
+//Prove the following theorem
+//(There are no premises - you'll want to immediately open a subproof with an "assume".)
+//use LEM
+
+|- (p -> q) -> ((!p -> q) -> q)
+{
+    1. {
+          2. !(p V !p)            assume
+          //prove !p
+          3. {
+                4. p            assume
+                5. p V !p       Vi1 4
+                6. _|_             !e 5 2
+                    //want contradiction
+          }
+          7. !p               !i 3
+          8. p V !p           Vi2 7
+          9. _|_              !e 8 2
+           //use !i to conclude !p
+           //need p or !p
+           //if have p or !p could use Vi to get p V !p
+           //want a contradiction
+    }
+    10. p V !p          pbc 1
+    11. {
+        12. p -> q      assume
+        13. {
+            14. !p -> q     assume
+            15. {
+                16. !p  assume
+                17. q        ->e 14 16
+            }
+            18. {
+                19. p       assume
+                20. q       ->e 12 19
+            }
+            21. q           Ve 10 18 15
+        }
+        22. (!p -> q) -> q      ->i 13
+    }
+    23. (p -> q) -> ((!p -> q) -> q)    ->i 11
+
+}

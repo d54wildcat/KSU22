@@ -1,0 +1,28 @@
+//HW 2
+//6.logika
+
+//Complete the proof below
+
+(a V b) V c |- (c V b) V a
+{
+    1. (a V b) V c      premise
+    2. {
+        3. c            assume
+        4. c V b        Vi1 3
+        5. c V b V a    Vi1 4
+    }
+    6. {
+        7. a V b        assume
+        8. {
+            9. b       assume
+            10. c V b  Vi2 9
+            11. c V b V a Vi1 10
+        }
+        12. {
+            13. a           assume
+            14. c V b V a      Vi2 13
+        }
+        15. c V b V a           Ve 7 12 8
+    }
+    16. c V b V a              Ve 1 6 2
+}

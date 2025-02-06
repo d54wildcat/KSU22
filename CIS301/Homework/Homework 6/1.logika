@@ -1,0 +1,45 @@
+//HW 6, 1.logika
+//Problems 1-5
+
+//You can ignore any red markings in this file
+
+Translate the following to predicate logic using the
+following predicates:
+
+(Domain: dogs)
+
+P(x): dog x is purebred
+R(x): dog x is a retriever
+F(x): dog x plays fetch
+N(x,y): dog x is nice to dog y
+S(x,y): dog x is faster than dog y
+
+Fido and Daisy are particular individuals
+(so you can plug in "Fido" or "Daisy" as a dog in a
+predicate without using a quantifier)
+
+1. Rover is not a purebred and is faster than all retrievers.
+
+E x (!(P(Rover)) ^ A y R(y) -> S(Rover,y)
+
+
+
+2. Daisy doesn't play fetch, but there are some retrievers
+    who are nice to her.
+
+E x (R(x) ^ E y (!F(Daisy)) ^ N(x, Daisy))
+
+
+3. Not all retrievers who play fetch are purebred.
+
+A x (R(x) -> F(x) E y (!P(y)))
+
+
+4. No purebred is faster than every retriever.
+
+!(A x P(x) -> A y (R(y) -> S(x, y)))
+
+
+5. There is exactly one retriever who is nice to Fido.
+
+E x (R(x) ^ N(x, Fido))

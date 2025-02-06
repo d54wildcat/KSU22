@@ -1,0 +1,35 @@
+//HW 9
+//1.logika
+
+//Do not delete or add anything EXCEPT to add appropriate
+//logic blocks. When you are finished, the assert at the end should hold.
+
+//You should ONLY use the algebra rule to do the very last simplification in the last logic block.
+//Use the subst rule instead in all other places.
+
+//If you want, you can run the program by doing: right-click (right here, in this editor window,  "Run Logika Program")
+    //...or, Tools->Sireum->Logika->Run Logika Program
+
+import org.sireum.logika._
+
+var x: Z = readInt("Enter a number: ")
+val xIn: Z = x
+
+x = 4*x - 1
+l"""{
+    1. x = 4 * x_old - 1            premise
+    2. xIn = x_old                  premise
+    3. x = 4 * xIn - 1              subst2 2 1
+}"""
+assert(x == 4*xIn - 1)
+
+x = 2*x - 3
+l"""{
+    1. x = 2 * x_old - 3            premise
+    2. x_old = 4 * xIn - 1          premise
+    3. x = 2 * (4 * xIn - 1) - 3    subst1 2 1
+    4. x == 8 * xIn - 5             algebra 3
+
+}"""
+print("x is now ", x)
+assert(x == 8*xIn - 5)

@@ -1,0 +1,62 @@
+//HW 13
+//1.logika
+
+//Should be verified in "symexe" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: on
+    //Checker kind: summarizing SymeExe
+
+
+import org.sireum.logika._
+
+l"""{
+    fact
+        def exp(b: Z, p: Z): Z
+            exp0. A x: Z exp(x, 0) == 1
+            expn. A y: Z (A x: Z x > 0 -> exp(y, x) == exp(y, x-1) * y)
+}"""
+
+def exponent(base: Z, pow: Z): Z = {
+    //YOU DO THIS
+    //Write the function contract
+    //Think about what parameters would NOT work with this function
+    //You should use the Logika fact above in your postcondition
+    l"""{
+        requires pow >= 0
+        ensures result == exp(base, pow)
+
+    }"""
+
+    var i: Z = 0
+    var mult: Z = 1
+    while (i < pow) {
+            //YOU DO THIS
+            //Write the loop invariant block
+            l"""{
+                invariant
+                    i <= pow
+                    i >= 0
+                    mult == exp(base, i)
+                modifies i, mult
+            }"""
+
+        i = i + 1
+        mult = mult * base
+    }
+
+    return mult
+}
+
+////////////The assertions below should hold when you are done//////////////
+
+var ans: Z = exponent(5, 0)
+assert(ans == 1)
+
+ans = exponent(-2, 2)
+assert(ans == 4)
+
+ans = exponent(-2, 3)
+assert(ans == -8)
+
+ans = exponent(3, 7)
+assert(ans == 2187)

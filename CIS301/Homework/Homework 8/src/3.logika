@@ -1,0 +1,29 @@
+//HW 8
+//3.logika
+
+//Fill in the claims/justifications marked with ??? so the assert at the end is verified.
+//Change nothing else.
+
+import org.sireum.logika._
+
+val x: Z = 11
+val y: Z = x - 7
+val z: Z = 3 * y + x
+val a: Z = 2 * x + z
+
+l"""{
+    1. x == 11                              premise
+    2. y == x - 7                           premise
+    3. z == 3 * y + x                       premise
+    4. a == 2 * x + z                       premise
+    5. y + 7 == x                           algebra 2 1
+    6. a - 2 * x == z                       algebra 3 4
+    7. a- 2 * x == 3 * y + x                subst1 3 6
+    8. a - 2 * (y + 7) == 3 * y + (y + 7)   subst2 5 7
+    9. y == 4                               algebra 1 2
+    10. a - 2 * (4 + 7) == 3 * 4 + (4 + 7)   subst1 9 8
+    11. a == 45                             algebra 10
+    12. y == 4 ^ a == 45                    ^i 9 11
+}"""
+
+assert(y == 4 & a == 45)

@@ -1,0 +1,28 @@
+//HW 8
+//2.logika
+
+//Prove the following predicate logic sequent
+
+E x E y (P(x, y) V P(y, x)) |- E x E y P(x, y)
+{
+    1. E x E y (P(x, y) V P(y, x))      premise
+    2.{
+        3. a E y (P(a, y) V P(y, a))        assume
+        4. {
+            5. b P(a, b) V P(b, a)          assume
+            6. {
+                7. P(a, b)          assume
+                8. E y P(a, y)          Ei 7 b
+                9. E x E y (P(x, y))            Ei 8 a
+            }
+            10. {
+                11. P(b, a)                     assume
+                12. E y P(b, y)                 Ei 11 a
+                13. E x E y P(x, y)             Ei 12 b
+            }
+            14. E x E y P(x, y)                 Ve 5 6 10
+        }
+        15. E x (E y P(x, y))               Ee 3 4
+    }
+    16. E x E y P(x, y)                 Ee 1 2
+}

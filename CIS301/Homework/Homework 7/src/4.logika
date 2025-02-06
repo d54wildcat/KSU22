@@ -1,0 +1,24 @@
+//HW 7
+//4.logika
+
+//Prove the following predicate logic sequent:
+
+A x A y (P(x) -> Q(y)) |- (E y P(y)) -> (A x Q(x))
+{
+    1. A x A y (P(x) -> Q(y))           premise
+    2. {
+        3. E y P(y)                 assume
+        4. {
+            5. a P(a)           assume
+            6. A y P(a) -> Q(y)     Ae 1 a
+            7. {
+                8. b
+                9. P(a) -> Q(b)         Ae 6 b
+                10. Q(b)            ->e 9 5
+            }
+            11. (A x (Q(x)))        Ai 7
+        }
+        12. A x Q(x)                Ee 3 4
+    }
+    13. (E y P(y)) -> (A x (Q(x)))    ->i 2
+}

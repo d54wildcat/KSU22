@@ -1,0 +1,26 @@
+//HW 8
+//5.logika
+
+//Complete the logic block below so the assert at the end is verified.
+//Change nothing else.
+
+import org.sireum.logika._
+
+val x: Z = 10
+val y: Z = readInt()
+assume(y > 1)
+
+val test: Z = x * y
+
+l"""{
+    1. x = 10               premise
+    2. y > 1                premise
+    3. test = x * y         premise
+    5. test > y            algebra 2 3 1
+    6. test > x            algebra 2 3 1
+    7. test > 0             algebra 2 3 1
+    8. (test > x ^ test > y) ^i 6 5
+    9. ((test > x ^ test > y) ^ test > 0)       ^i 8 7
+}"""
+
+assert(test > x & test > y & test > 0)

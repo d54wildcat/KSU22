@@ -1,0 +1,50 @@
+//HW 13
+//3.logika
+
+//Should be verified in "symexe" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: on
+    //Checker kind: summarizing SymeExe
+
+import org.sireum.logika._
+
+//update seq so seq(pos) = newVal
+//i.e. if seq was ZS(5,1,4,7), pos was 2, and newVal was 100,
+//then function changes seq to: ZS(5,1,100,7)
+def setPos(seq: ZS, pos: Z, newVal: Z): Unit = {
+    //YOU DO THIS
+    //Write the function contract
+    //Specify exactly what requirements the function has about the parameters, and
+    //how the sequence will change by the end of the function.
+    //Remember to specify that the sequence size doesn't change.
+    l"""{
+        requires
+            pos >= 0
+            pos < seq.size
+        modifies seq
+        ensures
+            seq.size = seq_in.size
+            seq(pos) = newVal
+            A x: (0..<seq.size) (x != pos) -> seq(x) == seq_in(x)
+    }"""
+
+
+
+    seq(pos) = newVal
+}
+
+////////////The assertions below should hold when you are done//////////////
+
+var test: ZS = ZS(5,1,4,7)
+setPos(test, 2, 100)
+print("Updated sequence: ", test)
+assert(test == ZS(5,1,100,7))
+
+test = ZS(7,11)
+setPos(test, 0, -5)
+print("Updated sequence: ", test)
+assert(test == ZS(-5,11))
+
+setPos(test, 1, 17)
+print("Updated sequence: ", test)
+assert(test == ZS(-5,17))

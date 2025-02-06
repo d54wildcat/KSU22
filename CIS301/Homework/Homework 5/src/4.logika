@@ -1,0 +1,16 @@
+//HW 5
+//4.logika
+
+//use ONE truth table to show the following:
+
+// !p V !q |= !(p ^ q)
+                             *
+----------------------------------------------------
+p q| ((!p V !q) -> !(p ^ q)) ^ ((p ^ q) -> !(!p V !q))
+----------------------------------------------------
+T T|   F  F F   T  F   T     T     T    T  T F  F F
+T F|   F  T T   T  T   F     T     F    T  F F  T T
+F T|   T  T F   T  T   F     T     F    T  F T  T F
+F F|   T  T T   T  T   F     T     F    T  F T  T T
+-----------------------------------------------------
+Tautology

@@ -1,0 +1,25 @@
+//HW 2
+//5.logika
+
+//Complete the proof below
+//Assume left side first
+(c ^ a) V (b ^ c) |- (b V a) ^ c
+{
+    1. (c ^ a) V (b ^ c)    premise
+    2. {
+        3. c ^ a            assume
+        4. c                ^e1 3
+        5. a                ^e2 3
+        6. b V a            Vi2 5
+        7. (b V a) ^ c      ^i 6 4
+    }
+        //goal: b V a ^ c
+    8. {
+        9. b ^ c               assume
+        10. b               ^e1 9
+        11. c               ^e2 9
+        12. b V a           Vi1 10
+        13. (b V a) ^ c     ^i 12 11
+        }
+       14. (b V a) ^ c     Ve 1 2 8
+    }

@@ -1,0 +1,99 @@
+//HW 11
+//5.logika
+
+//Make sure Logika is in default mode
+    //Settings->Tools->Sireum->Logika
+          //Auto mode: off
+          //Checker kind: Forward
+
+import org.sireum.logika._
+
+def sum5s(count: Z): Z = {
+    l"""{
+        requires count >= 0
+        ensures result == 5*count
+    }"""
+
+    var sum: Z = 0
+    var i: Z = 0
+
+    //YOU DO THIS
+    //Add a logic block to prove the loop invariants all hold
+    //before the loop begins
+    l"""{
+        1. sum == 0             premise
+        2. i == 0               premise
+        6. i >= 0               algebra 2
+        3. sum == 5 * i         algebra 1 2
+        4. count >= 0           premise
+        5. i <= count           algebra 2 4
+    }"""
+
+    while (i != count) {
+        l"""{
+            invariant
+                i >= 0
+                i <= count
+                sum == 5*i
+            modifies i, sum
+        }"""
+
+        sum = sum + 5
+        l"""{
+            1. sum == sum_old + 5       premise
+            2. sum_old == 5 * i         premise
+            3. sum == 5 * i + 5        algebra 2 1
+        }"""
+
+        i = i + 1
+        l"""{
+            1. i = i_old + 1            premise
+            2. sum == 5 * i_old + 5    premise
+            3. i_old = i - 1            algebra 1
+            4. i_old >= 0         premise
+            5. i_old <= count             premise
+            6. i - 1 >= 0               subst1 3 4
+            7. i >= 0                  algebra 6
+            8. i_old != count          premise
+            9. i <= count              algebra 3 5 8
+            10. sum = 5 * (i - 1) + 5    algebra 3 2
+            11. sum == 5 * i             algebra 10
+        }"""
+        //YOU DO THIS
+        //Add logic blocks in the loop to prove all the invariants
+        //still hold at the end of an iteration
+        //(You'll need a logic block after each variable update)
+    }
+    l"""{
+        1. sum == 5 * i             premise
+        2. !(i != count)            premise
+        3. i <= count              premise
+        4. i == count              algebra 2 3
+        5. sum == 5 * count        algebra 1 4
+    }"""
+    //YOU DO THIS
+    //Add a logic block to prove the postcondition
+    return sum
+}
+
+//////////// Test code ////////////////
+
+val input: Z = 6
+
+//YOU DO THIS
+//Add a logic block to prove the precondition
+l"""{
+    1. input == 6           premise
+    2. input >= 0           algebra 1
+}"""
+val sixFives: Z = sum5s(input)
+
+//YOU DO THIS
+//Add a logic block to prove the assert
+l"""{
+    1. sixFives == 5 * input       premise
+    2. input == 6           premise
+    3. sixFives == 30    algebra 1 2
+}"""
+
+assert(sixFives == 30)

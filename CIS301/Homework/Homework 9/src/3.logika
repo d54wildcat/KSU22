@@ -1,0 +1,68 @@
+//HW 9
+//3.logika
+
+//Do not delete or add anything EXCEPT to add appropriate assumes/logic blocks/asserts
+//as specified below. When you are finished, all your asserts should hold.
+
+//If you want, you can run the program by doing: right-click (right here, in this editor window,  "Run Logika Program")
+    //...or, Tools->Sireum->Logika->Run Logika Program
+
+
+
+import org.sireum.logika._
+
+var num: Z = readInt("Enter a positive single-digit number: ")
+
+//write an assume statement to specify that num should be a positive, single-digit number
+assume(num > 0)
+assume(num <= 9)
+num = num * 12
+
+//write ONE assert statement to claim that num is now even, divisible by 3, and between 12 and 108 (inclusive)
+//(you will need to add a logic block beforehand to provide the necessary proof for your assert)
+//If you make a claim involving modulus (%), you'll need
+    // a logic block line showing that the numerator (left-hand side of the %) is >= 0
+    // a logic block line showing that the denominator (right-hand side of the %) is > 0
+l"""{
+    1. 2 > 0                        algebra
+    15. 3 > 0                        algebra
+    2. num_old > 0                  premise
+    3. num_old >= 0                 algebra 2
+    4. num = num_old * 12           premise
+    5. num > 0                     algebra 2 4
+    14. num >= 0                   algebra 5
+    6. num % 2 == 0                 algebra 4
+    7. num % 3 == 0                 algebra 4
+    8. num_old <= 9                 premise
+    9. num >= 12                   algebra 5 4
+    10. num <= 108                  algebra 4 8
+    11. num % 2 == 0 ^ num % 3 == 0     ^i 6 7
+    12. num % 2 == 0 ^ num % 3 == 0 ^ num >= 12     ^i 11 9
+    13. num % 2 == 0 ^ num % 3 == 0 ^ num >= 12 ^ num <= 108     ^i 12 10
+
+
+}"""
+assert(num % 2 == 0 & num % 3 == 0 & num >= 12 & num <= 108)
+
+//write ONE assert statement to claim that num is now odd, divisible by 3, and between 21 and 117 (inclusive)
+//(you will need to add a logic block beforehand to provide the necessary proof for your assert)
+num = num + 9
+l"""{
+    1. num = num_old + 9            premise
+    2. num_old >= 0                premise
+    14. num_old % 3 == 0            premise
+    3. num >= 0                   algebra 2 1
+    4. 3 > 0                      algebra
+    5. num_old % 2 == 0               premise
+    6. num % 2 == 1               algebra 1 5
+    7. num % 3 == 0               algebra 1 14
+    8. num_old >= 12             premise
+    15. num_old <= 108           premise
+    9. num >= 21                algebra 1 8
+    10. num <= 117               algebra 1 15
+    11. num % 2 == 1 ^ num % 3 == 0     ^i 6 7
+    12. num % 2 == 1 ^ num % 3 == 0 ^ num >= 21     ^i 11 9
+    13. num % 2 == 1 ^ num % 3 == 0 ^ num >= 21 ^ num <= 117     ^i 12 10
+}"""
+assert(num % 2 == 1 & num % 3 == 0 & num >= 21 & num <= 117)
+print("num is now ", num)

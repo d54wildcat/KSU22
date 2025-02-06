@@ -1,0 +1,187 @@
+//HW 14
+//4.logika
+
+//Should be verified in "symexe" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: on
+    //Checker kind: summarizing SymeExe
+
+
+import org.sireum.logika._
+
+var coins: Z = 0
+var quarters: Z = 0
+var dimes: Z = 0
+var nickels: Z = 0
+var pennies: Z = 0
+var amount: Z = 0
+
+l"""{
+    invariant
+        coins == quarters + dimes + nickels + pennies
+        amount == 25*quarters + 10*dimes + 5*nickels + pennies
+        quarters >= 0
+        dimes >= 0
+        nickels >= 0
+        pennies >= 0
+}"""
+
+//YOU DO THIS
+//Given the global invariant above, function contracts
+//for each function that will help validate that the global invariants
+//will still hold at the end of each function call
+
+//NEXT,  write the code to implement each function
+
+//When you are done, the asserts at the bottom should hold
+
+def addQuarters(count: Z): Unit = {
+    //Adds count quarters
+    l"""{
+        requires
+            count >= 0
+        modifies quarters, amount, coins
+        ensures
+            quarters = quarters_in + count
+            amount = amount_in + (count * 25)
+            coins = coins_in + count
+    }"""
+    quarters = quarters + count
+    amount = amount + (count * 25)
+    coins = coins_in + count
+}
+
+def addDimes(count: Z): Unit = {
+    l"""{
+            requires
+                count >= 0
+            modifies dimes, amount, coins
+            ensures
+                dimes = dimes_in + count
+                amount = amount_in + (count * 10)
+                coins = coins_in + count
+        }"""
+        dimes = dimes + count
+        amount = amount + (count * 10)
+        coins = coins + count
+    //Adds count dimes
+}
+
+def addNickels(count: Z): Unit = {
+    l"""{
+                requires
+                    count >= 0
+                modifies nickels, amount, coins
+                ensures
+                    nickels = nickels_in + count
+                    amount = amount_in + (count * 5)
+                    coins = coins_in + count
+            }"""
+            nickels = nickels + count
+            amount = amount + (count * 5)
+            coins = coins + count
+    //Adds count nickels
+}
+
+def addPennies(count: Z): Unit = {
+            l"""{
+                requires
+                    count >= 0
+                modifies pennies, amount, coins
+                ensures
+                    pennies = pennies_in + count
+                    amount = amount_in + count
+                    coins = coins_in + count
+            }"""
+
+        pennies = pennies + count
+        amount = amount + count
+        coins = coins + count
+    //Adds count pennies
+}
+
+def takeQuarters(count: Z): Unit = {
+    l"""{
+        requires
+            count >= 0
+            count <= quarters
+        modifies quarters, amount, coins
+        ensures
+            quarters = quarters_in - count
+            amount = amount_in - (count * 25)
+            coins = coins_in - count
+    }"""
+    quarters = quarters - count
+    amount = amount - (count * 25)
+    coins = coins - count
+    //Takes away count quarters
+}
+
+def takeDimes(count: Z): Unit = {
+    l"""{
+            requires
+                count >= 0
+                count <= dimes
+            modifies dimes, amount, coins
+            ensures
+                dimes = dimes_in - count
+                amount = amount_in - (count * 10)
+                coins = coins_in - count
+        }"""
+        dimes = dimes - count
+        amount = amount - (count * 10)
+        coins = coins - count
+    //Takes away count dimes
+}
+
+def takeNickels(count: Z): Unit = {
+    l"""{
+            requires
+                count >= 0
+                count <= nickels
+            modifies nickels, amount, coins
+            ensures
+                nickels = nickels_in - count
+                amount = amount_in - (count * 5)
+                coins = coins_in - count
+        }"""
+        nickels = nickels - count
+        amount = amount - (count * 5)
+        coins = coins - count
+    //Takes away count nickels
+}
+
+def takePennies(count: Z): Unit = {
+    l"""{
+            requires
+                count >= 0
+                count <= pennies
+            modifies pennies, amount, coins
+            ensures
+                pennies = pennies_in - count
+                amount = amount_in - (count * 1)
+                coins = coins_in - count
+        }"""
+        pennies = pennies - count
+        amount = amount - (count * 1)
+        coins = coins - count
+    //Takes away count pennies
+}
+////////// Test code //////////////
+assert(quarters == 0 & nickels == 0 & dimes == 0 & nickels == 0 & amount == 0 & coins == 0)
+
+addQuarters(5)
+addNickels(3)
+addPennies(4)
+
+assert(quarters == 5 & dimes == 0 & nickels == 3 & pennies == 4 & amount == 144 & coins == 12)
+
+takePennies(2)
+takeQuarters(5)
+
+assert(quarters == 0 & dimes == 0 & nickels == 3 & pennies == 2 & amount == 17 & coins == 5)
+
+addQuarters(1)
+addDimes(1)
+
+assert(quarters == 1 & dimes == 1 & nickels == 3 & pennies == 2 & amount == 52 & coins == 7)

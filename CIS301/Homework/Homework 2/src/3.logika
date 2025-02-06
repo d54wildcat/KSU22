@@ -1,0 +1,34 @@
+//HW 2
+//3.logika
+
+//Consider the following knights and knaves problem:
+
+// Adam says: "Barb is a knight or I am a knave."
+// Barb says: "Adam is a knave."
+
+// Translate the knights and knaves puzzle to a single propositional logic statement (as we did in lecture).
+
+// List your propositions.
+//b: Barb is a Knight
+//!b:Barb is not a knight(knave)
+//a: Adam is a Knight
+//!a: Adam is not a Knight(Knave)
+
+//(a -> b V !a) ^ (b -> !a)
+                     *
+---------------------------------
+a b| (a -> b V (!a)) ^ (b -> !a)
+---------------------------------
+T T|    T    T  F    F    F  F
+T F|    F    F  F    F    T  F
+F T|    T    T  T    T    T  T
+F F|    T    T  T    T    T  T
+---------------------------------
+Contingent
+- T: [F T] [F F]
+- F: [T T] [T F]
+
+// Next, complete the truth table for your propositional logic statement
+
+// Using your truth table, explain what you learned about the puzzle
+// Through the truth table, There is no real answer to the puzzle. We can't really figure it out

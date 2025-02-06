@@ -1,0 +1,36 @@
+//HW 4
+//1.logika
+
+//Prove the following sequent
+
+(c ^ n) -> t, h ^ !s, h ^ !(s V c) -> p |- (n ^ !t) -> p
+{
+    1. c ^ n -> t           premise
+    2. h ^ !s               premise
+    3. h ^ !(s V c) -> p         premise
+    4. h                    ^e1 2
+    5. !s                   ^e2 2
+    6.{
+        7. n ^ !t           assume
+        8. n                ^e1 7
+        9. !t               ^e2 7
+        10.{
+            11. s V c        assume
+            12.{
+                13. s        assume
+                14. _|_         !e 13 5
+            }
+            15. {
+                16. c       assume
+                17. c ^ n      ^i 16 8
+                18. t           ->e 1 17
+                19. _|_         !e 18 9
+        }
+        20. _|_             Ve 11 12 15
+        }
+        21. !(s V c)            !i 10
+        22. h ^ !(s V c)        ^i 4 21
+        23. p                   ->e 3 22
+    }
+    25. (n ^ !t) -> p       ->i 6
+}

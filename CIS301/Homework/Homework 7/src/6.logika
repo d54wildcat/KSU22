@@ -1,0 +1,18 @@
+//HW 7
+//6.logika
+
+//You can ignore any red error markings in this file -- it doesn't use the Logika tool.
+
+In this problem, ! denotes factorial. For example, 5! = 5*4*3*2*1 = 120.
+We also have that 1! = 1.
+
+
+Prove, using mathematical induction, that for any integer n >= 1:
+   (1 * 1!) + (2 * 2!) + ... + (n * n!) = (n + 1)! - 1
+
+Base case: n = 1: (1 * 1!) = (1 + 1)!-1
+1 = 2! - 1 = 1  So the base case holds
+Induction step: (1 * 1!) + (2 * 2!) + ... + (n + 1 * (n + 1)!) = ((n + 1) + 1)! - 1
+=  (n + 1 + 1!) - 1
+= (n + 1) + 1!
+= (n + 1)!

@@ -1,0 +1,44 @@
+//HW 3, problem 6
+
+//Complete the proof below
+//This is a harder/longer one!
+//HINT: first, try to prove !s
+//NEXT, prove the conclusion !(!p V q)
+
+p -> !q, !s -> p, t V !s, !t |- !(!p V q)
+{
+    1. p -> !q          premise
+    2.!s -> p           premise
+    3. t V !s           premise
+    4. !t               premise
+    5. {
+        6. s        assume
+        7. {
+            8. t        assume
+            9. _|_      !e 8 4
+        }
+        10.{
+            11. !s      assume
+            12. _|_     !e 6 11
+        }
+        13. _|_         Ve 3 7 10
+    }
+    14. !s              !i 5
+    15.{
+        16. !p V q      assume
+        17. {
+            18. !p      assume
+            19. p       ->e 2 14
+            20. _|_     !e 19 18
+        }
+        21. {
+            22. q       assume
+            23. p       ->e 2 14
+            24. !q      ->e 1 23
+            25. _|_     !e 22 24
+        }
+        26. _|_         Ve 16 17 21
+    }
+    27. !(!p V q)           !i 15
+
+}

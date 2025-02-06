@@ -1,0 +1,18 @@
+//HW 3, problem 3
+
+//Complete the proof below
+
+(p ^ q) -> r |- p -> (q -> r)
+{
+    1. (p ^ q) -> r       premise
+    2. {
+        3. p            assume
+        4. {
+            5. q        assume
+            6. p ^ q    ^i 3 5
+            7. r        ->e 1 6
+        }
+        8. q -> r    ->i 4
+    }
+    9. p -> (q -> r)  ->i 2
+}

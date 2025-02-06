@@ -1,0 +1,96 @@
+//HW 11
+//2.logika
+
+//Make sure Logika is in default mode
+    //Settings->Tools->Sireum->Logika
+          //Auto mode: off
+          //Checker kind: Forward
+
+import org.sireum.logika._
+
+def findMin(x: Z, y: Z): Z = {
+    //YOU DO THIS
+    //Write the function contract
+    //No precondition needed
+    //Postcondition: the function returns the min of x and y
+        //(Look at the findMax example in the textbook)
+    l"""{
+        ensures
+            result <= x ^ result <= y
+            result == x V result == y
+    }"""
+
+    var min: Z = 0
+    l"""{
+        1. min == 0    premise
+    }"""
+
+    if (x < y) {
+        min = x
+        l"""{
+            1. min_old == 0   premise
+            2. min == x       premise
+            3. x < y          premise
+            4. min <= x       algebra 2
+            5. min <= y       algebra 3 4
+            6. min <= x ^ min <= y   ^i 4 5
+        }"""
+    } else {
+        min = y
+        l"""{
+            1. min_old == 0   premise
+            2. min == y       premise
+            3. !(x < y)       premise
+            4. y <= x         algebra 3
+            5. min <= y       algebra 2
+            6. min <= x       algebra 2 3
+            7. min <= x ^ min <= y   ^i 6 5
+        }"""
+    }
+
+    //YOU DO THIS
+    //Add necessary logic blocks to prove the postcondition
+    l"""{
+        1. min == x V min == y   premise
+        2. min <= x ^ min <= y   premise
+    }"""
+
+    return min
+}
+
+////////////////// Testing code /////////////////////
+
+var a: Z = 3
+var b: Z = 4
+
+var small: Z = findMin(a, b)
+
+//YOU DO THIS
+//Add a logic block to prove the assert statement
+l"""{
+    1. small <= a ^ small <= b   premise
+    2. small == a V small == b   premise
+    3. small <= a                ^e1 1
+    4. small <= b                ^e2 1
+    5. a == 3                    premise
+    6. b == 4                    premise
+    7. small <= 3                algebra 3 5
+    8. small <= 4                algebra 4 6
+    9. small == 3 V small == b   subst1 5 2
+    10. small == 3 V small == 4  subst1 6 9
+    11. {
+        12. small == 3           assume
+    }
+    13. {
+        14. small == 4           assume
+        15. !(small <=4)         algebra 7 14
+        16. _|_                  !e 8 15
+        17. small == 3           _|_e 16
+    }
+    18. small == 3               Ve 10 11 13
+    19. small == a               subst2 5 18
+}"""
+
+
+
+assert(small == a)

@@ -1,0 +1,75 @@
+//HW 2
+//2.logika
+
+//2(a) Consider the following sentence:
+
+//I'm not tired or hungry, but I am thirsty.
+
+//p: I'm tired
+//q: I'm hungry
+//r: I'm thirsty
+
+
+//Next, use your propositional atoms to translate the sentence to propositional logic:
+
+
+(!p V !q) ^ r
+
+///////////////////////////////////////////////////////////////
+
+//2(b) Consider the following sentence:
+
+// I won't miss my flight if I get there two hours in advance.
+
+//First, identify the propositional atoms (start each line with a // comment):
+
+//p: I miss my flight
+//q: I get there 2 hours early
+
+
+//Next, use your propositional atoms to translate the sentence to propositional logic in TWO different ways:
+
+!p -> q
+p -> !q
+
+
+
+///////////////////////////////////////////////////////////////
+
+//2(c) Consider the following sentence:
+
+//I buy a Kit-Kat bar only if there are no Reese's, but they aren't as good.
+
+//First, identify the propositional atoms (start each line with a // comment):
+
+//p: I buy a Kit Kat
+//q: There are no Reese's
+//r: They aren't as good
+
+
+
+//Next, use your propositional atoms to translate the sentence to propositional logic in TWO different ways:
+
+(p ^ q) -> r
+q -> (p ^ r)
+
+
+///////////////////////////////////////////////////////////////
+
+
+//3(d) Consider the following sentence:
+
+//I won't go for a hike unless possibly if it's a warm day with no rain.
+
+//First, identify the propositional atoms (start each line with a // comment):
+
+//p: I go for a hike
+//q: It's a warm day
+//r: There is no rain
+
+
+
+//Next, use your propositional atoms to translate the sentence to propositional logic in TWO different ways:
+
+p -> (q ^ r)
+!p -> (!q ^ !r)

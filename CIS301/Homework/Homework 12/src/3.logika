@@ -1,0 +1,143 @@
+//HW 12
+//3.logika
+
+//Should be verified in "default" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: off
+    //Checker kind: forward
+
+//Do not change any code or the asserts -- only add the function contract/invariant block/logic blocks
+//I recommend tracing through the function with different parameters to see what it does.
+
+import org.sireum.logika._
+
+//generates pattern: 1, 2, 4, 7, 11, 16, 22, etc.
+//pattern(0) = 1
+//pattern(1) = 2
+//pattern(2) = 4, etc.
+l"""{
+    fact
+        def pattern(n: Z): Z
+            pattern0. pattern(0) == 1
+            patternN. A x: Z x > 0 -> pattern(x) == pattern(x-1) + x
+}"""
+
+//calculates and returns the nth value in the pattern above
+def getNthVal(n: Z): Z = {
+    //YOU DO THIS
+    //Write a function contract with a precondition (n should be non-negative)
+    //and a postcondition (you'll want to make use of the pattern fact above)
+    l"""{
+        requires n >= 0
+        ensures result == pattern(n)
+    }"""
+
+    var cur: Z = 1
+    var pos: Z = 0
+
+    //YOU DO THIS
+    //(After writing your loop invariant block)
+    //Prove the invariant(s) holds before the loop begins
+    l"""{
+        1. cur == 1          premise
+        2. pos == 0          premise
+        3. pos >= 0          algebra 2
+        4. pattern(0) == 1  fact pattern0
+        5. pattern(pos) == 1  algebra 2 4
+        6. cur == pattern(pos) algebra 1 5
+    }"""
+
+
+    while (pos != n) {
+        //YOU DO THIS
+        //Write a loop invariant block
+            //pos should be non-negative
+            //you'll also want to make use of the pattern fact above when describing what cur is
+        l"""{
+            invariant pos >= 0
+                cur == pattern(pos)
+            modifies pos, cur
+        }"""
+
+
+        pos = pos + 1
+        //YOU DO THIS
+        //Write a logic block to process the update of pos
+        l"""{
+            1. pos == pos_old + 1          premise
+            2. pos_old >= 0                premise
+            3. pos - 1 >= 0                algebra 1 2
+            4. pos > 0                    algebra 3
+            5. cur == pattern(pos_old)     premise
+            6. cur == pattern(pos - 1)     algebra 1 5
+        }"""
+        cur = cur + pos
+        //YOU DO THIS
+        //Write a logic block to process the update of cur
+        //By the end, you must prove that your invariant(s) still hold
+        l"""{
+            1. cur_old == pattern(pos - 1)                       premise
+            2. cur == cur_old + pos                              premise
+            3. cur == pattern(pos - 1) + pos                     algebra 1 2
+            4. A x: Z x > 0 -> pattern(x) == pattern(x-1) + x    fact patternN
+            5. pos > 0 -> pattern(pos) == pattern(pos-1) + pos   Ae 4 pos
+            6. pos > 0                                           premise
+            7. pattern(pos) == pattern(pos-1) + pos               ->e 5 6
+            8. cur == pattern(pos)                               algebra 3 7
+            9. pos >= 0                                          algebra 6
+        }"""
+
+
+    }
+
+    //YOU DO THIS
+    //Write a logic block to validate your postcondition
+    l"""{
+        1. cur == pattern(pos)          premise
+        2. !(pos != n)                 premise
+        3. pos == n                    algebra 2
+        4. cur == pattern(n)           algebra 1 3
+    }"""
+
+    return cur
+}
+
+////////////////// Test code ///////////////////////
+
+//YOU DO THIS
+//Add appropriate logic blocks so the asserts below are verified
+l"""{
+    1. 0 >= 0      algebra
+}"""
+var answer: Z = getNthVal(0)
+l"""{
+    1. answer == pattern(0)         premise
+    2. pattern(0) == 1              fact pattern0
+    3. answer == 1                  algebra 1 2
+}"""
+print("Pattern position 0, ", answer)
+assert(answer == 1)
+l"""{
+    1. 2 >= 0             algebra
+}"""
+
+
+answer = getNthVal(2)
+l"""{
+    1. answer == pattern(2)                              premise
+    2. A x: Z x > 0 -> pattern(x) == pattern(x-1) + x   fact patternN
+    3. 2 > 0 -> pattern(2) == pattern(2-1) + 2           Ae 2 2
+    4. 2 > 0                                             algebra
+    5. pattern(2) == pattern(2-1) + 2                   ->e 3 4
+    6. pattern(2) == pattern(1) + 2                     algebra 5
+    7. 1 > 0 -> pattern(1) == pattern(1-1) + 1           Ae 2 1
+    8. 1 > 0                                            algebra
+    9. pattern(1) == pattern(1-1) + 1                   ->e 7 8
+    10. pattern(1) == pattern(0) + 1                    algebra 9
+    11. pattern(0) == 1                                 fact pattern0
+    12. pattern(1) == 2                             algebra 10 11
+    13. pattern(2) == 4                             algebra 6 12
+    14. answer == 4                               algebra 1 13
+}"""
+print("Pattern position 2, ", answer)
+assert(answer == 4)

@@ -1,0 +1,22 @@
+//HW 4
+//3.logika
+
+//Prove the following sequent
+
+!(!p V q) |- p ^ !q
+{
+    1. !(!p V q)        premise
+    2. {
+        3. !p       assume
+        4. !p V q       Vi1 3
+        5. _|_          !e 4 1
+    }
+    6. p            pbc 2
+    7. {
+        8. q            assume
+        9. !p V q       Vi2 8
+        10. _|_         !e 9 1
+    }
+    11. !q              !i 7
+    12. p ^ !q          ^i 6 11
+}

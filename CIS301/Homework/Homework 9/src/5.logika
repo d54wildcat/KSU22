@@ -1,0 +1,77 @@
+//HW 9
+//5.logika
+//FIRST, write a program that does the following, where each step is done one a separate line (or lines):
+
+    //1) Gets a positive 2-digit number from the user
+    import org.sireum.logika._
+    val input: Z = readInt("Enter a positive 2-digit number: ")
+    var test: Z = input
+    assume(input > 9)
+    assume(input < 100)
+    l"""{
+        1. 10 > 0           algebra
+        2. 10 != 0          algebra
+        3. input > 9        premise
+        4. input >= 0       algebra 3
+    }"""
+    val onesPlace: Z = input % 10
+    val tensPlace: Z = input / 10
+
+//2) Makes an answer variable equal to five times the tens place digit of the input
+    test = 5 * tensPlace
+    l"""{
+        1. test = 5 * tensPlace    premise
+    }"""
+//3) Adds 3 to the answer variable
+    test = test + 3
+    l"""{
+        1. test = test_old + 3          premise
+        2. test_old == 5 * tensPlace    premise
+        3. test == 5 * tensPlace + 3    subst1 2 1
+    }"""
+//4) Multiplies the answer variable by 2
+    test = test * 2
+    l"""{
+        1. test = test_old * 2          premise
+        2. test_old == 5 * tensPlace + 3    premise
+        3. test == (5 * tensPlace + 3) * 2    subst1 2 1
+        4. test == 10 * tensPlace + 6    algebra 3
+    }"""
+//5) Finds the ones place digit in the user input number, and adds it onto the answer variable
+    test = test + onesPlace
+    l"""{
+        1. test = test_old + onesPlace          premise
+        2. test_old == 10 * tensPlace + 6    premise
+        3. test == 10 * tensPlace + 6 + onesPlace    subst1 2 1
+    }"""
+//6) Subtracts 6 from the answer variable
+    test = test - 6
+    l"""{
+        1. test = test_old - 6          premise
+        2. test_old == 10 * tensPlace + 6 + onesPlace    premise
+        3. test == 10 * tensPlace + 6 + onesPlace - 6    subst1 2 1
+        4. test == 10 * tensPlace + onesPlace           algebra 3
+        5. 10 != 0                                       algebra
+        6. tensPlace == input / 10                       premise
+        7. onesPlace == input % 10                       premise
+        8. input == 10 * tensPlace + onesPlace           algebra 6 7
+        9. test == input                                 algebra 3 8
+    }"""
+assert (test == input)
+    //For example, if the user input is 27 (so the 10s place digit is 2 and the ones place digit is 7):
+        //answer = 5 * (tens place of input) = 5*2 = 10
+        //Add 3 to the answer, so answer is now 13
+        //Multiply answer times 2, so answer is now 26
+        //Add the ones place of the input (7) onto answer, so answer is now 33
+        //Subtract 6 from answer, so answer is now 27 (notice answer is now the original input number)
+
+    //Look at the previous example files to see the syntax for writing a Logika program
+
+    //You can get the tens place by taking the input number divided by 10
+    //You can get the ones place by taking the input number modulo (%) 10
+
+
+//NEXT, add an assert statement at the bottom asserting that your final answer equals
+//the original user input number
+
+//FINALLY, add appropriate assume/logic blocks so that your assert at the end is verified

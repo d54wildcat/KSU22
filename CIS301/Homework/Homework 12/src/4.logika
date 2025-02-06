@@ -1,0 +1,142 @@
+//HW 12
+//4.logika
+
+//Should be verified in "default" mode
+//Settings->Tools->Sireum->Logika
+    //Auto mode: off
+    //Checker kind: forward
+
+//Do not change any code or the assert -- only add the function contract/invariant block/logic blocks
+//I recommend tracing through the function with different parameters to see what it does.
+
+import org.sireum.logika._
+
+//Adds together all values in an mxn grid of 2s, and returns the sum
+//For example, if m = 3 and n = 4, it would add together all the 2s in the grid:
+    // 2 2 2 2
+    // 2 2 2 2
+    // 2 2 2 2
+//And return 24
+def addGridOf2s(m: Z, n: Z): Z = {
+    //YOU DO THIS
+    //Write a function contract with appropriate preconditions and postconditions
+    //Afterward (likely after doing everything with the loops below), add the necessary
+    //logic blocks to verify your postcondition
+    l"""{
+        requires m > 0
+            n > 0
+            ensures result == (m * n * 2)
+    }"""
+
+    var sum: Z = 0
+    var i: Z = 0
+    var j: Z = 0
+    l"""{
+        1. sum == 0        premise
+        2. i == 0          premise
+        3. j == 0          premise
+        4. sum == i * n * 2   algebra 1 2 3
+    }"""
+
+    //the outer loop loops through each of the m rows
+    //sum tracks the sum of all the 2s you've added together so far
+    while (i != m) {
+        //YOU DO THIS
+        //Write an appropriate loop invariant block for your outer loop
+        //Afterward, add the necessary logic blocks to verify your invariant
+        l"""{
+            invariant sum == i * n * 2
+            modifies sum, i, j
+        }"""
+
+        j = 0
+        var line: Z = 0
+
+        //the inner loop loops through each of the n values in the current row
+        //when the loop is done, line should be the sum of all the 2s in that row
+        l"""{
+            1. line == 0          premise
+            2. j == 0             premise
+            3. line = 2 * j       algebra 1 2
+        }"""
+        while (j != n) {
+            //YOU DO THIS
+            //Write an appropriate loop invariant block for your inner loop
+            //Afterward, add the necessary logic blocks to verify your invariant
+            l"""{
+                invariant line == 2 * j
+                modifies line, j
+            }"""
+
+            line = line + 2
+            l"""{
+                1. line == line_old + 2        premise
+                2. line_old == 2 * j           premise
+                3. line == 2 * j + 2         algebra 1 2
+
+            }"""
+            j = j + 1
+            l"""{
+                1. j == j_old + 1           premise
+                2. line == 2 * j_old + 2    premise
+                3. line == 2 * (j - 1) + 2    algebra 1 2
+                4. line = 2 * j             algebra 3
+            }"""
+        }
+        l"""{
+            1. line = 2 * j         premise
+            2. !(j != n)            premise
+            3. j == n               algebra 2
+            4. line == 2 * n        algebra 1 3
+        }"""
+        //adds all the 2s from the previous row (line) onto the running sum
+        sum = sum + line
+        l"""{
+            1. sum == sum_old + line            premise
+            2. line = 2 * n                     premise
+            3. j == n                           premise
+            4. sum_old = i * n * 2              premise
+            5. sum = i * n * 2 + line           algebra 1 4
+            6. sum = i * n * 2 + (2 * n)        algebra 2 5
+
+        }"""
+
+        i = i + 1
+        l"""{
+            1. i = i_old + 1                        premise
+            2. sum == i_old * n * 2 + (2 * n)       premise
+            3. sum == (i - 1) * n * 2 + (2 * n)     algebra 1 2
+            4. sum == i * n * 2                     algebra 3
+        }"""
+    }
+    l"""{
+        1. sum == i * n * 2          premise
+        2. !(i != m)                premise
+        3. i == m                  algebra 2
+        4. sum == m * n * 2        algebra 1 3
+    }"""
+    return sum
+}
+
+////////// Test code ///////////////
+
+//YOU DO THIS
+//Add appropriate logic blocks so the assert below is verified
+
+var x: Z = 3
+var y: Z = 4
+l"""{
+    1. x == 3     premise
+    2. y == 4     premise
+    3. x > 0      algebra 1
+    4. y > 0     algebra 2
+}"""
+
+var grid: Z = addGridOf2s(x, y)
+l"""{
+    1. grid = x * y * 2    premise
+    2. x == 3             premise
+    3. y == 4             premise
+    4. grid == 24         algebra 1 2 3
+}"""
+assert(grid == 24)

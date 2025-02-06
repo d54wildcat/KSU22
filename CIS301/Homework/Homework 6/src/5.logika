@@ -1,0 +1,27 @@
+//HW 6
+//5.logika
+
+//Complete the following predicate logic proof
+
+A x (!Late(x) V EatBreakfast(x)) |- A y (Late(y) -> EatBreakfast(y))
+{
+    1. A x (!Late(x) V EatBreakfast(x))         premise
+    2. {
+        3. fresh
+        4. !Late(fresh) V EatBreakfast(fresh)   Ae 1 fresh
+        5. {
+            6. Late(fresh)                      assume
+            7. {
+                8. !Late(fresh)                 assume
+                9. _|_                          !e 6 8
+                10. EatBreakfast(fresh)         _|_e 9
+            }
+            11. {
+                12. EatBreakfast(fresh)         assume
+            }
+            13. EatBreakfast(fresh)             Ve 4 7 11
+        }
+        14. Late(fresh) -> EatBreakfast(fresh)  ->i 5
+    }
+    15. A y (Late(y) -> EatBreakfast(y))        Ai 2
+}

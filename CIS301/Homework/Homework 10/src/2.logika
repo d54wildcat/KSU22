@@ -1,0 +1,45 @@
+//HW 10
+//2.logika
+
+//YOU DO THIS:
+//1) Read through the program to see what it does. You might try running the program with different inputs.
+//2) Add the assert statement described at the bottom of the file
+//3) Add the appropriate logic blocks so the assert statement will be validated (in default mode)
+    //Settings->Tools->Sireum->Logika
+          //Auto mode: off
+          //Checker kind: Forward
+
+//You should not change any code -- your only modifications should be creating an assert and new logic blocks.
+
+import org.sireum.logika._
+
+var num: Z = readInt("Enter a non-negative number: ")
+
+assume(num >= 0)
+l"""{
+    1. num >= 0         premise
+    2. 2 > 0            algebra
+}"""
+if (num % 2 != 0) {
+    num = num + 1
+    l"""{
+        4. num_old >= 0     premise
+        1. num_old % 2 != 0    premise
+        2. num = num_old + 1  premise
+        3. num % 2 = 0     algebra 1 2
+        5. num >= 0        algebra 4 2
+    }"""
+} else {
+    //NO CODE
+    l"""{
+        1. !(num % 2 != 0)    premise
+        2. num % 2 = 0     algebra 1
+    }"""
+}
+l"""{
+    1. num >= 0        premise
+    2. num % 2 = 0     premise
+}"""
+print(num, " is now even")
+assert(num % 2 == 0)
+//YOU DO THIS: Add an assert statement saying that num is even

@@ -1,0 +1,42 @@
+//HW 5
+//3.logika
+
+
+//3(a)
+//The following sequent is invalid. How do we know?
+
+//Through deduction if the or statement is true we need at least
+one of the terms to be true. If we prove that q is false, and we already know P is false, then the sequent is invalid
+//(Provide T/F values for each propositional atom so that the premises are true but the conclusion is false.)
+
+//!p, p V q, |- !q
+
+p = F
+q = T
+
+
+//3(b)
+//The following sequent is invalid. How do we know?
+T -> F  is false
+//(Provide T/F values for each propositional atom so that the premises are true but the conclusion is false.)
+
+//p -> (!q V r), !r |- !q -> !p
+
+p = T
+q = F
+r = F
+
+
+
+
+//3(c)
+//The following sequent is invalid. How do we know?
+False ^ anything is false
+
+//(Provide T/F values for each propositional atom so that the premises are true but the conclusion is false.)
+
+//p -> q -> r |- (p ^ q -> r) ^ (p -> (q ^ r))
+
+p = T
+q = F
+r = T

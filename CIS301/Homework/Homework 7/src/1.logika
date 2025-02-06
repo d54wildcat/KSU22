@@ -1,0 +1,28 @@
+//HW 7
+//1.logika
+
+//Prove the following predicate logic sequent:
+
+(E x Dog(x)) V (E y Cat(y)) |- E n (Dog(n) V Cat(n))
+{
+    1. (E x Dog(x)) V (E y Cat(y))          premise
+    2.{
+        3. (E x Dog(x))                     assume
+        4. {
+            5. a Dog(a)                     assume
+            6. Dog(a) V Cat(a)              Vi1 5
+            7. E n (Dog(n) V Cat(n))        Ei 6 a
+        }
+        8. E n (Dog(n) V Cat(n))            Ee 3 4
+    }
+    9. {
+        10. (E y Cat(y))                assume
+        11. {
+            12. b Cat (b)                   assume
+            13. Dog(b) V Cat(b)             Vi2 12
+            14. E n (Dog(n) V Cat(n))       Ei 13 b
+        }
+        15. E n (Dog(n) V Cat(n))           Ee 10 11
+    }
+    16. E n (Dog(n) V Cat(n))           Ve 1 2 9
+}

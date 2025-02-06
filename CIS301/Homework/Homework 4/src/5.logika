@@ -1,0 +1,30 @@
+//HW 4
+//5.logika
+
+//Prove the following sequent
+
+(p -> q) -> r, s -> !p, t, (!s ^ t) -> q |- r
+{
+    1. (p -> q) -> r      premise
+    2. s -> !p          premise
+    3. t                premise
+    4. (!s ^ t) -> q    premise
+    5. {
+        6. p            assume
+        7. {
+            8. !q       assume
+            9. {
+                10. !s      assume
+                11. !s ^ t   ^i 10 3
+                12. q           ->e 4 11
+                13. _|_         !e 12 8
+            }
+            14. s           pbc 9
+            15. !p          ->e 2 14
+            16. _|_         !e 6 15
+        }
+        17. q               pbc 7
+    }
+    18. p -> q              ->i 5
+    19. r                   ->e 1 18
+}

@@ -1,0 +1,34 @@
+//HW 5
+//5.logika
+
+//Ignore any red markings -- this file doesn't use Logika
+
+Translate the following to predicate logic using the following predicates:
+
+K(x): person x is a kid
+Ad(x): person x is an adult
+B(x): person x rides a bike
+
+Bob and Alice are particular individuals (so you can plug in "Bob" and "Alice" as a person in a predicate
+    without using a quantifier)
+
+
+1. Bob is a kid and Alice is an adult.
+
+E x K("Bob") ^ Ad("Alice")
+
+
+2. Not all kids can ride bikes.
+
+!(∀ x K(x) -> B(x))
+
+
+
+3. There is an adult who can ride a bike.
+
+E x (Ad(x) ^ B(x))
+
+
+4. No kid is an adult.
+
+!(E x (P(x) ^ Q(x)))

@@ -1,0 +1,54 @@
+//HW 9
+//2.logika
+
+//Do not delete or add anything EXCEPT to add appropriate
+//logic blocks. When you are finished, the assert at the end should hold.
+
+
+//You will need a logic block line like this to show that dividing by 4 is allowed:
+    //...
+    // x. 4 != 0            algebra
+
+//If you want, you can run the program by doing: right-click (right here, in this editor window,  "Run Logika Program")
+    //...or, Tools->Sireum->Logika->Run Logika Program
+
+import org.sireum.logika._
+
+val input: Z = readInt("Enter a number: ")
+var test: Z = input
+l"""{
+    1. test = input         premise
+}"""
+
+test = test * 4
+l"""{
+    1. test = test_old * 4   premise
+    2. test_old = input      premise
+    3. test = input * 4         algebra 1 2
+    4. 4 != 0                 algebra
+    5. test % 2 == 0         algebra 3 4
+}"""
+test = test + 4
+l"""{
+    1. test = test_old + 4          premise
+    2. test_old = input * 4         premise
+    3. test == (input * 4) + 4      subst1 2 1
+}"""
+
+test = test / 4
+l"""{
+    1. test = test_old / 4          premise
+    2. test_old = (input * 4) + 4   premise
+    3. test == ((input * 4) + 4) / 4      subst1 2 1
+    4. test == input + 1              algebra 3
+}"""
+test = test - input
+l"""{
+    1. test = test_old - input          premise
+    2. test_old == input + 1             premise
+    3. test == (input + 1) - input      subst1 2 1
+    4. test == 1                       algebra 3
+}"""
+
+print("No matter what you entered, the test value is now 1!")
+assert(test == 1)

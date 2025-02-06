@@ -1,0 +1,21 @@
+//HW 3, problem 5
+
+//Complete the proof below
+
+!(p V q) |- !p ^ !q
+{
+    1. !(p V q)     premise
+    2. {
+        3. p        assume
+        4. p V q    Vi1 3
+        5. _|_      !e 4 1
+    }
+    6. !p           !i 2
+    7. {
+        8. q        assume
+        9. p V q       Vi2 8
+        10. _|_         !e 9 1
+    }
+    11. !q              !i 7
+    12. !p ^ !q          ^i 6 11
+}

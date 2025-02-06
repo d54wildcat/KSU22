@@ -1,0 +1,24 @@
+//HW 4
+//2.logika
+
+//Prove the following sequent
+
+p -> (q V r), !q, !r, p |- w
+{
+    1. p -> (q V r) premise
+    2. !q           premise
+    3. !r           premise
+    4. p            premise
+    5. q V r        ->e 1 4
+    6. {
+        7. q            assume
+        8. _|_      !e 7 2
+        9. w        _|_e 8
+    }
+    10. {
+        11. r           assume
+        12. _|_             !e 11 3
+        13. w           _|_e 12
+    }
+    14. w                Ve 5 6 10
+}

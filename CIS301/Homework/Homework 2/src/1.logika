@@ -1,0 +1,26 @@
+//HW 2, problem 1
+//1.logika
+
+//Write the truth table for the following formula:
+
+// (p V r) V q -> !r ^ p
+
+//Use * to mark the top-level operator
+//After the truth table, list the formula as either tautology, contingent, or contradictory
+                 *
+---------------------------
+p r q| p V r V q -> !r ^ p
+---------------------------
+T T T|   T   T   F  F  F
+T T F|   T   T   F  F  F
+T F T|   T   T   T  T  T
+T F F|   T   T   T  T  T
+F T T|   T   T   F  F  F
+F T F|   T   T   F  F  F
+F F T|   F   T   F  T  F
+F F F|   F   F   T  T  F
+---------------------------
+
+Contingent
+- T: [T F T] [T F F]  [F F F]
+- F: [T T T] [T T F] [F T T] [F T F] [F F T]

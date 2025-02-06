@@ -1,0 +1,26 @@
+//HW 8
+//4.logika
+
+//Complete the logic block below so the assert at the end is verified.
+//Change nothing else.
+
+import org.sireum.logika._
+
+val x: Z = 5 * 2
+val y: Z = 5
+val z: Z = 5 + y * 2
+
+
+l"""{
+
+    1. x = 5 * 2            premise
+    2. y = 5                premise
+    3. z = 5 + y * 2        premise
+    4. z = 5 + 5 * 2        subst1 2 3
+    5. z == 15              algebra 4
+    6. (y == 5) ^ (z == 15) ^i 2 5
+    7. (x == 0 | (y == 5 & z == 15))    Vi2 6
+
+}"""
+
+assert(x == 0 | (y == 5 & z == 15))

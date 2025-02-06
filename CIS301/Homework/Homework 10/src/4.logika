@@ -1,0 +1,55 @@
+//HW 10
+//4.logika
+
+//YOU DO THIS:
+//1) Read through the program to see what it does. You might try running the program with different inputs.
+//2) Add the appropriate logic blocks so the assert statements will be validated (in default mode)
+    //Settings->Tools->Sireum->Logika
+          //Auto mode: off
+          //Checker kind: Forward
+
+//You should not change any code or the assert statements -- your only modifications should be new logic blocks.
+
+
+import org.sireum.logika._
+
+var balance: Z = readInt("Enter starting balance: ")
+val origBalance: Z = balance
+val amount: Z = readInt("Enter amount to withdraw: ")
+
+var overdraft: B = false
+//if the user's balance is big enough, make the withdrawal
+//otherwise, don't make the withdrawal and set the overdraft flag to true
+if (balance >= amount) {
+    overdraft = false
+    balance = balance - amount
+l"""{
+    1. balance_old >= amount         premise
+    2. overdraft = false             premise
+    5. balance == balance_old - amount    premise
+    3. origBalance == balance_old    premise
+    4. balance == origBalance - amount subst2 3 5
+    6. overdraft == true | (balance == origBalance - amount)    Vi2 4
+    7. overdraft == false | (balance == origBalance)    Vi1 2
+}"""
+} else {
+    overdraft = true
+l"""{
+    2. overdraft = true             premise
+    1. !(balance >= amount)         premise
+    3. balance < amount             algebra 1
+    4. origBalance == balance       premise
+    5. balance == origBalance      algebra 4
+    6. (overdraft == false | balance == origBalance)      Vi2 5
+    7. overdraft == true | (balance == origBalance - amount)      Vi1  2
+}"""
+}
+l"""{
+    1. (overdraft == false | balance == origBalance)           premise
+    2. overdraft == true | (balance == origBalance - amount) premise
+}"""
+//Either the overdraft flag was set, or the withdrawal went through
+assert (overdraft == true | (balance == origBalance - amount))
+
+//Either there was no overdraft, or the balance is unchanged
+assert (overdraft == false | balance == origBalance)

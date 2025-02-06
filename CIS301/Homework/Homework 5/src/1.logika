@@ -1,0 +1,30 @@
+//HW 5
+//1.logika
+
+//prove the following theorem of propositional logic:
+
+//((b -> a) ^ (a -> b)) -> ((b V a) -> (b ^ a))
+|- ((b -> a) ^ (a -> b)) -> ((b V a) -> (b ^a))
+{
+    1. {
+        2. (b -> a) ^ (a -> b)      assume
+        3. b -> a               ^e1 2
+        4. a -> b               ^e2 2
+        5. {
+             6. b V a           assume
+             7. {
+                 8. b           assume
+                 9. a           ->e 3 8
+                 10. b ^ a      ^i 8 9
+             }
+             11. {
+                   12. a        assume
+                   13. b        ->e 4 12
+                   14. b ^ a       ^i 13 12
+             }
+             15. b ^ a          Ve 6 7 11
+        }
+        16. (b V a) -> (b ^ a)      ->i 5
+    }
+    17. ((b -> a) ^ (a -> b)) -> ((b V a) -> (b ^a))        ->i 1
+}
