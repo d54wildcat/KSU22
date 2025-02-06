@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksu.Cis300.Boggle", "Ksu.Cis300.Boggle\Ksu.Cis300.Boggle.csproj", "{D4FB437D-3911-4A2B-92E7-AD52B475CB55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ksu.Cis300.TrieLibrary", "Ksu.Cis300.TrieLibrary\Ksu.Cis300.TrieLibrary.csproj", "{438B5E8C-8741-4680-A67F-58B43363483D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4FB437D-3911-4A2B-92E7-AD52B475CB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4FB437D-3911-4A2B-92E7-AD52B475CB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4FB437D-3911-4A2B-92E7-AD52B475CB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4FB437D-3911-4A2B-92E7-AD52B475CB55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438B5E8C-8741-4680-A67F-58B43363483D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438B5E8C-8741-4680-A67F-58B43363483D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438B5E8C-8741-4680-A67F-58B43363483D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438B5E8C-8741-4680-A67F-58B43363483D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {573A5AF4-3578-4159-82DB-88F9512E3045}
+	EndGlobalSection
+EndGlobal
