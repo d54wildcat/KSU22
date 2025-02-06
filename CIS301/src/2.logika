@@ -1,0 +1,51 @@
+//HW 1
+//2.logika
+//Problems 5-6
+
+//Ignore any red error markings in this file
+
+//Problem 5
+5. Pigeon tells only lies on days containing a "u", and tells the truth on other days.
+Hawk tells only lies on days containing an "n", and tells the truth on other days.
+
+You don't know what day it is, but you are certain it isn't Sunday.
+You ask Pigeon: "Do you lie on Fridays?"
+
+Pigeon answers: "Yes!"
+
+
+//type your solution next to the question
+You then ask Hawk the same question. What does Hawk answer?
+
+
+//Explain your reasoning below.
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+//Problem 6
+6. Zip and Zap are identical twins who share a house. On each day of the week, one of them lies
+and the other tells the truth. You don't know which one lies on which days,
+and you can't tell them apart.
+
+Whichever one is lying that day does all the dishes after breakfast.
+
+
+The twins approach you. One of them says, "Zip didn't do the dishes after breakfast today."
+
+//type your solution next to the question
+Is the twin who spoke Zip or Zap?
+
+
+//Explain your reasoning below. Why is your answer the ONLY one that works?
+
+
+
+
+//Answer the second question below, and explain your thought process.
+Did the twin who spoke do the dishes?

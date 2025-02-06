@@ -1,0 +1,79 @@
+//HW 1
+//1.logika
+//Problems 1-4
+
+//Ignore any red error markings in this file
+
+On the island of Knights and Knaves, every inhabitant is either a knight or a knave.
+Knights always tell the truth, and knaves always lie.
+
+//Problem 1
+1. You meet two inhabitants: Allison and Ben.
+
+Allison says: "Ben would say that I am a knave."
+Ben says: "Allison and I are either both knights or both knaves."
+
+//type your solution (knight or knave) next to each question
+What type is Allison?
+What type is Ben?
+
+//Explain your reasoning below. Why is your answer the ONLY one that works?
+S
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+//Problem 2
+2. You meet two new inhabitants: Chris and Danni.
+
+Chris says: "At least one of the following is true: Danni is a knave or I am a knight."
+Danni says: "Only a knave would say that Chris is a knave"
+
+//type your solution (knight or knave) next to each question
+What type is Chris?
+What type is Danni?
+
+//Explain your reasoning below. Why is your answer the ONLY one that works?
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+//Problem 3
+3. You meet three new inhabitants: Eduardo, Florence, and Greg.
+
+Eduardo says: "Greg is a knave or Florence is a knight."
+Florence says: "I could say that Greg is a knight."
+Greg says: "Florence is not a knave."
+
+//type your solution (knight or knave) next to each question
+What type is Eduardo?
+What type is Florence?
+What type is Greg?
+
+//Explain your reasoning below. Why is your answer the ONLY one that works?
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+//Problem 4
+4. You meet three new inhabitants: Hector, Ivan, and Jamie.
+
+Hector says: "Neither Ivan nor Jamie are knaves."
+Ivan says: "Hector and Jamie are both knaves."
+Jamie says: "I am a different type than Ivan."
+
+//type your solution (knight or knave) next to each question
+What type is Hector?
+What type is Ivan?
+What type is Jamie?
+
+//Explain your reasoning below. Why is your answer the ONLY one that works?
